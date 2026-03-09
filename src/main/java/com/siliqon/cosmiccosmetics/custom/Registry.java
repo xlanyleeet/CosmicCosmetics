@@ -1,13 +1,13 @@
 package com.siliqon.cosmiccosmetics.custom;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Registry<T, U> {
-    protected static final CosmicCosmetics plugin = CosmicCosmetics.getInstance();
+    protected static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
     protected Map<T, U> registryMap = new HashMap<>();
 

@@ -5,7 +5,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.files.LangFile;
 import com.siliqon.cosmiccosmetics.guis.MainWindow;
 import com.siliqon.cosmiccosmetics.guis.lib.GUIManager;
@@ -18,11 +18,11 @@ import static com.siliqon.cosmiccosmetics.utils.Utils.sendMessage;
 
 @CommandAlias("cosmetics|cc")
 public class CosmeticsCommand extends BaseCommand {
-    private final CosmicCosmetics plugin;
+    private final CosmeticsPlugin plugin;
     private GUIManager guiManager;
     private LangFile lang;
 
-    public CosmeticsCommand(CosmicCosmetics plugin) {
+    public CosmeticsCommand(CosmeticsPlugin plugin) {
         this.plugin = plugin;
         this.guiManager = plugin.getGuiManager();
         this.lang = plugin.getLang();

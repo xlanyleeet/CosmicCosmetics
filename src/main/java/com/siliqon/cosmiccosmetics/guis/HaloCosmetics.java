@@ -1,6 +1,6 @@
 package com.siliqon.cosmiccosmetics.guis;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import com.siliqon.cosmiccosmetics.enums.EffectType;
 import com.siliqon.cosmiccosmetics.files.LangFile;
@@ -21,14 +21,14 @@ import static com.siliqon.cosmiccosmetics.utils.UI.*;
 import static com.siliqon.cosmiccosmetics.utils.Utils.sendMessage;
 
 public class HaloCosmetics extends InventoryGUI {
-    private final CosmicCosmetics plugin;
+    private final CosmeticsPlugin plugin;
     private final LangFile lang;
     private final GUIManager guiManager;
 
     private final Material backgroundMaterial = Material.GRAY_STAINED_GLASS_PANE;
 
     private EffectType activeEffect;
-    public HaloCosmetics(CosmicCosmetics plugin) {
+    public HaloCosmetics(CosmeticsPlugin plugin) {
         this.plugin = plugin;
         this.lang = plugin.getLang();
         this.guiManager = plugin.getGuiManager();

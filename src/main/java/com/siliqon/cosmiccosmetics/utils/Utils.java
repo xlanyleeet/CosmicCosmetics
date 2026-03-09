@@ -1,11 +1,11 @@
 package com.siliqon.cosmiccosmetics.utils;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Utils {
-    private static final CosmicCosmetics plugin = CosmicCosmetics.getInstance();
+    private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
     public static void sendMessage(Player player, String message, Boolean prefixed) {
         if (prefixed) player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.PREFIX + message));

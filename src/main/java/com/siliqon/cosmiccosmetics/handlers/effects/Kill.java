@@ -1,6 +1,6 @@
 package com.siliqon.cosmiccosmetics.handlers.effects;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import com.siliqon.cosmiccosmetics.enums.EffectType;
 import org.bukkit.Bukkit;
@@ -11,13 +11,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.log;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.log;
 import static com.siliqon.cosmiccosmetics.utils.Effects.*;
 
 public class Kill implements Listener {
-    private final CosmicCosmetics plugin;
+    private final CosmeticsPlugin plugin;
 
-    public Kill(CosmicCosmetics plugin) {
+    public Kill(CosmeticsPlugin plugin) {
         this.plugin = plugin;
     }
 

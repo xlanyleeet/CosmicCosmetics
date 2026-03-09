@@ -1,20 +1,20 @@
 package com.siliqon.cosmiccosmetics.listeners;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
 
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.log;
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.logError;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.log;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.logError;
 import static com.siliqon.cosmiccosmetics.utils.Utils.sendMessage;
 
 public class ServerListener implements Listener {
-    private final CosmicCosmetics plugin;
+    private final CosmeticsPlugin plugin;
 
-    public ServerListener(CosmicCosmetics plugin) {
+    public ServerListener(CosmeticsPlugin plugin) {
         this.plugin = plugin;
     }
 

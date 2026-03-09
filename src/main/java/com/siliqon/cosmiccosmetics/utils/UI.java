@@ -1,6 +1,6 @@
 package com.siliqon.cosmiccosmetics.utils;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UI {
-    private static final CosmicCosmetics plugin = CosmicCosmetics.getInstance();
+    private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
     public static void setMenuBackground(Inventory inv, Material material, int start, int stop, String displayName) {
         for (int i = start; i < stop; i++) {

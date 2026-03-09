@@ -1,6 +1,6 @@
 package com.siliqon.cosmiccosmetics.utils;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.custom.ActiveEffectData;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import com.siliqon.cosmiccosmetics.enums.EffectType;
@@ -15,16 +15,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.log;
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.logError;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.log;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.logError;
 import static com.siliqon.cosmiccosmetics.utils.Effects.getEffectsEnabled;
 import static com.siliqon.cosmiccosmetics.utils.Effects.getPlayerActiveEffectData;
 
 public class Storage {
-    private final CosmicCosmetics plugin;
+    private final CosmeticsPlugin plugin;
     private File dataFile; private FileConfiguration data;
 
-    public Storage(CosmicCosmetics plugin) {
+    public Storage(CosmeticsPlugin plugin) {
         this.plugin = plugin;
     }
 

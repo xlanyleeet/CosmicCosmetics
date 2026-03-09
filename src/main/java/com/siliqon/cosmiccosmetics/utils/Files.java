@@ -1,6 +1,6 @@
 package com.siliqon.cosmiccosmetics.utils;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.files.LangFile;
 import com.siliqon.cosmiccosmetics.files.MainConfig;
 import de.exlll.configlib.ConfigLib;
@@ -12,12 +12,12 @@ import org.bukkit.ChatColor;
 import java.io.File;
 import java.nio.file.Path;
 
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.log;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.log;
 
 public class Files {
-    private final CosmicCosmetics plugin;
+    private final CosmeticsPlugin plugin;
 
-    public Files(CosmicCosmetics plugin) {
+    public Files(CosmeticsPlugin plugin) {
         this.plugin = plugin;
     }
 

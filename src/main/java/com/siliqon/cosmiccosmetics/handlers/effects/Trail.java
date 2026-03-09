@@ -1,6 +1,6 @@
 package com.siliqon.cosmiccosmetics.handlers.effects;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.custom.ActiveEffectData;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import com.siliqon.cosmiccosmetics.enums.EffectType;
@@ -10,11 +10,11 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.log;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.log;
 import static com.siliqon.cosmiccosmetics.utils.Effects.*;
 
 public class Trail {
-    private static final CosmicCosmetics plugin = CosmicCosmetics.getInstance();
+    private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
     public static void startForPlayer(Player player) {
         EffectType effectType = getActiveEffect(player, EffectForm.TRAIL);

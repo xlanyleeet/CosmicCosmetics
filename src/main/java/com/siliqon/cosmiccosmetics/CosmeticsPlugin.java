@@ -30,8 +30,8 @@ import java.util.*;
 
 import static com.siliqon.cosmiccosmetics.utils.Effects.getPlayerActiveEffectData;
 
-public final class CosmicCosmetics extends JavaPlugin {
-    private static CosmicCosmetics INSTANCE;
+public final class CosmeticsPlugin extends JavaPlugin {
+    private static CosmeticsPlugin INSTANCE;
     public final String PLUGIN_VERSION = "v"+getDescription().getVersion();
 
     public NamespacedKey customItemKey = new NamespacedKey(this, "menu-item");
@@ -233,7 +233,7 @@ public final class CosmicCosmetics extends JavaPlugin {
         INSTANCE.getLogger().severe(message);
     }
 
-    public static CosmicCosmetics getInstance() {
+    public static CosmeticsPlugin getInstance() {
         return INSTANCE;
     }
 }

@@ -1,6 +1,6 @@
 package com.siliqon.cosmiccosmetics.utils;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.custom.*;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import com.siliqon.cosmiccosmetics.enums.EffectType;
@@ -14,11 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.siliqon.cosmiccosmetics.CosmicCosmetics.log;
+import static com.siliqon.cosmiccosmetics.CosmeticsPlugin.log;
 import static com.siliqon.cosmiccosmetics.utils.Utils.toDisplayCase;
 
 public class Effects {
-    private static final CosmicCosmetics plugin = CosmicCosmetics.getInstance();
+    private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
     private static final List<EffectType> projectileEffectTypes = List.of(EffectType.SPLASH, EffectType.ENDER, EffectType.FLAME, EffectType.CHARM, EffectType.LOVE, EffectType.BLOSSOM, EffectType.ENCHANTED, EffectType.TEARS, EffectType.MUSICAL);
     private static final List<EffectType> trailEffectTypes = List.of(EffectType.BLOSSOM, EffectType.RAINBOW, EffectType.CHARM, EffectType.LOVE, EffectType.MUSICAL, EffectType.CLOUDY, EffectType.ENDER);

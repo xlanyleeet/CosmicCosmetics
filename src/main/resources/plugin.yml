@@ -1,6 +1,6 @@
 name: '${project.name}'
 version: '${project.version}'
-main: com.siliqon.cosmiccosmetics.CosmicCosmetics
+main: com.siliqon.cosmiccosmetics.CosmeticsPlugin
 api-version: 1.21.1
 prefix: '${project.name}'
 authors: [SiliQon]

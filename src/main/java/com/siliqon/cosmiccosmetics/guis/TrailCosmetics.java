@@ -1,10 +1,9 @@
 package com.siliqon.cosmiccosmetics.guis;
 
-import com.siliqon.cosmiccosmetics.CosmicCosmetics;
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import com.siliqon.cosmiccosmetics.enums.EffectType;
 import com.siliqon.cosmiccosmetics.files.LangFile;
-import com.siliqon.cosmiccosmetics.guis.lib.GUIListener;
 import com.siliqon.cosmiccosmetics.guis.lib.GUIManager;
 import com.siliqon.cosmiccosmetics.guis.lib.InventoryButton;
 import com.siliqon.cosmiccosmetics.guis.lib.InventoryGUI;
@@ -22,14 +21,14 @@ import static com.siliqon.cosmiccosmetics.utils.UI.*;
 import static com.siliqon.cosmiccosmetics.utils.Utils.sendMessage;
 
 public class TrailCosmetics extends InventoryGUI {
-    private final CosmicCosmetics plugin;
+    private final CosmeticsPlugin plugin;
     private final LangFile lang;
     private final GUIManager guiManager;
 
     private final Material backgroundMaterial = Material.GRAY_STAINED_GLASS_PANE;
 
     private EffectType activeEffect;
-    public TrailCosmetics(CosmicCosmetics plugin) {
+    public TrailCosmetics(CosmeticsPlugin plugin) {
         this.plugin = plugin;
         this.lang = plugin.getLang();
         this.guiManager = plugin.getGuiManager();
