@@ -1,0 +1,28 @@
+debug-level: 0
+
+storage-type: SQLITE
+sqlite-file-name: cosmetics.db
+mariadb-host: 127.0.0.1
+mariadb-port: 3306
+mariadb-database: cosmiccosmetics
+mariadb-username: root
+mariadb-password: password
+database-pool-maximum-size: 8
+database-connection-timeout-ms: 30000
+
+cosmetic-purchasing-enabled: true
+cosmetic-testing-mode: false
+default-cosmetic-price: 100.0
+default-language: en_US
+per-player-language: true
+
+# Leave list empty to allow that cosmetic form in all worlds.
+enabled-worlds:
+  projectile: []
+  trail: []
+  kill: []
+  halo: []
+  glow: []
+  capes: []
+  balloons: []
+  pets: []

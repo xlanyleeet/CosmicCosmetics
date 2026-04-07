@@ -20,58 +20,109 @@ import static com.siliqon.cosmiccosmetics.utils.Utils.toDisplayCase;
 public class Effects {
     private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
-    private static final List<EffectType> projectileEffectTypes = List.of(EffectType.SPLASH, EffectType.ENDER, EffectType.FLAME, EffectType.CHARM, EffectType.LOVE, EffectType.BLOSSOM, EffectType.ENCHANTED, EffectType.TEARS, EffectType.MUSICAL);
-    private static final List<EffectType> trailEffectTypes = List.of(EffectType.BLOSSOM, EffectType.RAINBOW, EffectType.CHARM, EffectType.LOVE, EffectType.MUSICAL, EffectType.CLOUDY, EffectType.ENDER);
-    private static final List<EffectType> killEffectTypes = List.of(EffectType.ENDER, EffectType.FLAME, EffectType.CHARM, EffectType.LOVE, EffectType.BLOSSOM, EffectType.ENCHANTED, EffectType.TEARS, EffectType.RAINBOW, EffectType.CLOUDY);
-    private static final List<EffectType> haloEffectTypes = List.of(EffectType.SPLASH, EffectType.ENDER, EffectType.FLAME, EffectType.CHARM, EffectType.LOVE, EffectType.BLOSSOM, EffectType.ENCHANTED, EffectType.TEARS, EffectType.RAINBOW);
+    private static final List<EffectType> projectileEffectTypes = List.of(EffectType.SPLASH, EffectType.ENDER,
+            EffectType.FLAME, EffectType.CHARM, EffectType.LOVE, EffectType.BLOSSOM, EffectType.ENCHANTED,
+            EffectType.TEARS, EffectType.MUSICAL);
+    private static final List<EffectType> trailEffectTypes = List.of(EffectType.BLOSSOM, EffectType.RAINBOW,
+            EffectType.CHARM, EffectType.LOVE, EffectType.MUSICAL, EffectType.CLOUDY, EffectType.ENDER);
+    private static final List<EffectType> killEffectTypes = List.of(EffectType.ENDER, EffectType.FLAME,
+            EffectType.CHARM, EffectType.LOVE, EffectType.BLOSSOM, EffectType.ENCHANTED, EffectType.TEARS,
+            EffectType.RAINBOW, EffectType.CLOUDY);
+    private static final List<EffectType> haloEffectTypes = List.of(EffectType.SPLASH, EffectType.ENDER,
+            EffectType.FLAME, EffectType.CHARM, EffectType.LOVE, EffectType.BLOSSOM, EffectType.ENCHANTED,
+            EffectType.TEARS, EffectType.RAINBOW);
+    private static final List<EffectType> capesEffectTypes = List.of(
+            EffectType.CAPE_CRIMSON,
+            EffectType.CAPE_AZURE,
+            EffectType.CAPE_EMERALD,
+            EffectType.CAPE_VIOLET,
+            EffectType.CAPE_RAINBOW,
+            EffectType.CAPE_GOLD,
+            EffectType.CAPE_ICE,
+            EffectType.CAPE_VOID,
+            EffectType.CAPE_SUNSET);
+    private static final List<EffectType> balloonsEffectTypes = List.of(
+            EffectType.BALLOON_RED,
+            EffectType.BALLOON_BLUE,
+            EffectType.BALLOON_GREEN,
+            EffectType.BALLOON_YELLOW,
+            EffectType.BALLOON_PURPLE,
+            EffectType.BALLOON_ORANGE,
+            EffectType.BALLOON_CYAN,
+            EffectType.BALLOON_PINK);
+    private static final List<EffectType> petsEffectTypes = List.of(
+            EffectType.PET_CAT,
+            EffectType.PET_WOLF,
+            EffectType.PET_RABBIT,
+            EffectType.PET_FOX,
+            EffectType.PET_PIG,
+            EffectType.PET_SHEEP);
 
     public static String getEffectDisplayName(EffectType type) {
-        if (type == null || plugin.effectNameRegistry.get(type) == null) return "NONE";
+        if (type == null || plugin.effectNameRegistry.get(type) == null)
+            return "NONE";
         return plugin.effectNameRegistry.get(type).toString();
     }
+
     public static List<String> getEffectDescription(EffectType type) {
-        if (type == null || plugin.effectDescriptionRegistry.get(type) == null) return new ArrayList<>();
+        if (type == null || plugin.effectDescriptionRegistry.get(type) == null)
+            return new ArrayList<>();
         return (List<String>) plugin.effectDescriptionRegistry.get(type);
     }
+
     public static Material getEffectMaterial(EffectType type) {
-        if (type == null || plugin.effectMaterialRegistry.get(type) == null) return Material.AIR;
+        if (type == null || plugin.effectMaterialRegistry.get(type) == null)
+            return Material.AIR;
         return Material.valueOf(plugin.effectMaterialRegistry.get(type).toString());
     }
+
     public static Particle getEffectParticle(EffectType type) {
-        if (type == null || plugin.effectParticleRegistry.get(type) == null) return null;
+        if (type == null || plugin.effectParticleRegistry.get(type) == null)
+            return null;
         return Particle.valueOf(plugin.effectParticleRegistry.get(type).toString());
     }
+
     public static Integer getEffectDensity(EffectType type) {
-        if (type == null || plugin.effectDensityRegistry.get(type) == null) return 0;
+        if (type == null || plugin.effectDensityRegistry.get(type) == null)
+            return 0;
         return Integer.parseInt(plugin.effectDensityRegistry.get(type).toString());
     }
 
     public static EffectType getActiveEffect(Player player, EffectForm form) {
         ActiveEffectData playerData = getPlayerActiveEffectData(player);
-        if (playerData == null) return null;
+        if (playerData == null)
+            return null;
 
-        if (plugin.debugLevel >=2) log("Got active effects (" + form + ") for "+player.getName());
+        if (plugin.debugLevel >= 2)
+            log("Got active effects (" + form + ") for " + player.getName());
         return playerData.getEffects().get(form);
     }
+
     public static String getActiveEffectName(Player player, EffectForm form) {
         ActiveEffectData playerData = getPlayerActiveEffectData(player);
-        if (playerData == null) return "NONE";
+        if (playerData == null)
+            return "NONE";
 
         EffectType type = playerData.getEffects().get(form);
-        if (type == null) return "NONE";
+        if (type == null)
+            return "NONE";
 
         return toDisplayCase(type.toString());
     }
+
     public static Map<EffectForm, EffectType> getActiveEffects(Player player) {
         ActiveEffectData playerData = getPlayerActiveEffectData(player);
-        if (playerData == null) return new HashMap<>();
+        if (playerData == null)
+            return new HashMap<>();
 
-        if (plugin.debugLevel >= 2) log("Retrieved active effects for "+ player.getName());
+        if (plugin.debugLevel >= 2)
+            log("Retrieved active effects for " + player.getName());
         return playerData.getEffects();
     }
 
     public static boolean getEffectsEnabled(Player player) {
-        if (plugin.cosmeticsEnabled.get(player.getUniqueId()) == null) return false;
+        if (plugin.cosmeticsEnabled.get(player.getUniqueId()) == null)
+            return false;
         return plugin.cosmeticsEnabled.get(player.getUniqueId());
     }
 
@@ -81,7 +132,8 @@ public class Effects {
 
     public static void setActiveEffect(Player player, EffectForm form, EffectType type) {
         ActiveEffectData playerData = getPlayerActiveEffectData(player);
-        if (playerData == null) playerData = new ActiveEffectData(player.getUniqueId(), new HashMap<>(), new HashMap<>());
+        if (playerData == null)
+            playerData = new ActiveEffectData(player.getUniqueId(), new HashMap<>(), new HashMap<>());
 
         if (type == null) {
             playerData.removeEffect(form);
@@ -89,29 +141,58 @@ public class Effects {
         }
 
         playerData.addEffect(form, type);
-        if (!plugin.playerActiveEffects.containsKey(player.getUniqueId())) plugin.playerActiveEffects.put(player.getUniqueId(), playerData);
+        if (!plugin.playerActiveEffects.containsKey(player.getUniqueId()))
+            plugin.playerActiveEffects.put(player.getUniqueId(), playerData);
         switch (form) {
             case EffectForm.PROJECTILE: {
                 Projectile.startForPlayer(player);
+                break;
             }
             case EffectForm.TRAIL: {
                 Trail.startForPlayer(player);
+                break;
             }
             case EffectForm.HALO: {
                 Halo.startForPlayer(player);
+                break;
             }
-            // kill is event based
+            case EffectForm.CAPES: {
+                Capes.startForPlayer(player);
+                break;
+            }
+            case EffectForm.BALLOONS: {
+                Balloons.startForPlayer(player);
+                break;
+            }
+            case EffectForm.PETS: {
+                Pets.startForPlayer(player);
+                break;
+            }
+            case EffectForm.KILL:
+            case EffectForm.GLOW: {
+                break;
+            }
         }
-        if (plugin.debugLevel >= 2) log("Set active effect ("+form+") for " + player.getName());
+        if (plugin.debugLevel >= 2)
+            log("Set active effect (" + form + ") for " + player.getName());
     }
 
     public static void removeActiveEffect(Player player, EffectForm form) {
         ActiveEffectData playerData = getPlayerActiveEffectData(player);
-        if (playerData == null) return;
+        if (playerData == null)
+            return;
+
+        if (form == EffectForm.BALLOONS) {
+            Balloons.removeForPlayer(player);
+        } else if (form == EffectForm.PETS) {
+            Pets.removeForPlayer(player);
+        }
 
         playerData.removeEffect(form);
-        if (plugin.debugLevel >= 2) log("Removed effect ("+form+") for " + player.getName());
+        if (plugin.debugLevel >= 2)
+            log("Removed effect (" + form + ") for " + player.getName());
     }
+
     public static void removeAllActiveEffects(Player player) {
         Map<EffectForm, EffectType> current = new HashMap<>(getActiveEffects(player));
         for (EffectForm form : current.keySet()) {
@@ -120,6 +201,13 @@ public class Effects {
     }
 
     public static List<EffectType> getFormEffects(EffectForm form) {
+        if (plugin.getCosmeticRules() != null) {
+            List<EffectType> configuredEffects = plugin.getCosmeticRules().getFormEffects(form);
+            if (!configuredEffects.isEmpty()) {
+                return configuredEffects;
+            }
+        }
+
         if (form == EffectForm.PROJECTILE) {
             return projectileEffectTypes;
         } else if (form == EffectForm.TRAIL) {
@@ -128,6 +216,12 @@ public class Effects {
             return killEffectTypes;
         } else if (form == EffectForm.HALO) {
             return haloEffectTypes;
+        } else if (form == EffectForm.CAPES) {
+            return capesEffectTypes;
+        } else if (form == EffectForm.BALLOONS) {
+            return balloonsEffectTypes;
+        } else if (form == EffectForm.PETS) {
+            return petsEffectTypes;
         }
 
         return new ArrayList<>();

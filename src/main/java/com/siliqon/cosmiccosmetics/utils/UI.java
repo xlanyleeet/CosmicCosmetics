@@ -1,7 +1,7 @@
 package com.siliqon.cosmiccosmetics.utils;
 
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -10,6 +10,8 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.siliqon.cosmiccosmetics.utils.Utils.mm;
 
 public class UI {
     private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
@@ -24,7 +26,7 @@ public class UI {
         ItemStack item = new ItemStack(material, amount);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
+        meta.displayName(mm(displayName));
         meta.getPersistentDataContainer().set(plugin.customItemKey, PersistentDataType.BOOLEAN, true);
 
         item.setItemMeta(meta);
@@ -36,13 +38,12 @@ public class UI {
         ItemStack item = new ItemStack(material, amount);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
-        List<String> newLore = new ArrayList<>();
+        meta.displayName(mm(displayName));
+        List<Component> newLore = new ArrayList<>();
         for (String line : lore) {
-            newLore.add(ChatColor.translateAlternateColorCodes('&', line));
+            newLore.add(mm(line));
         }
-        meta.setLore(newLore);
-        item.setItemMeta(meta);
+        meta.lore(newLore);
         meta.getPersistentDataContainer().set(plugin.customItemKey, PersistentDataType.BOOLEAN, true);
 
         item.setItemMeta(meta);

@@ -1,0 +1,29 @@
+effects:
+  blossom:
+    price: 100.0
+    permission: cosmetics.trail.blossom
+    permission-only: false
+  rainbow:
+    price: 100.0
+    permission: cosmetics.trail.rainbow
+    permission-only: false
+  charm:
+    price: 100.0
+    permission: cosmetics.trail.charm
+    permission-only: false
+  love:
+    price: 100.0
+    permission: cosmetics.trail.love
+    permission-only: false
+  musical:
+    price: 100.0
+    permission: cosmetics.trail.musical
+    permission-only: false
+  cloudy:
+    price: 100.0
+    permission: cosmetics.trail.cloudy
+    permission-only: false
+  ender:
+    price: 100.0
+    permission: cosmetics.trail.ender
+    permission-only: false

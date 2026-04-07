@@ -1,14 +1,17 @@
 > # CosmicCosmetics
+
 ## An EULA friendly plugin that allows players to use cool cosmetics
 
 ### The plugin includes a configuration file and a detailed lang.yml file
+
 ### The plugin has Vault support for permissions
+
 ### Minecraft Versions Officially Supported: 1.20.x - 1.21.x
 
 > # Commands
+
 <details>
 <summary>Player Commands (/cc, /cosmetics)</summary>
-
 
 - /cc : Opens the cosmetics menu
 
@@ -17,9 +20,9 @@
 </details>
 
 > # Permissions
+
 <details>
 <summary>Command Nodes (Vault Supported)</summary>
-
 
 - cosmetics.use : /cc
 - cosmetics.toggle : /cc toggle
@@ -29,12 +32,13 @@
 - cosmetics.trail.{effect_name} : Ability to use a trail effect
 - cosmetics.projectile.{effect_name} : Ability to use a projectile effect
 - cosmetics.halo.{effect_name} : Ability to use a halo effect
+- cosmetics.pets.{effect_name} : Ability to use a mini pet cosmetic (permission only)
 </details>
 
 > # Effects
+
 <details>
 <summary>Valid Kill Effect Names</summary>
-
 
 - Ender
 - Flame
@@ -49,7 +53,6 @@
 <details>
 <summary>Valid Trail Effect Names</summary>
 
-
 - Blossom
 - Rainbow
 - Charm
@@ -60,7 +63,6 @@
 </details>
 <details>
 <summary>Valid Projectile Effect Names</summary>
-
 
 - Splash
 - Ender
@@ -75,10 +77,9 @@
 <details>
 <summary>Valid Halo Effect Names</summary>
 
-
 - Splash
 - Ender
-- Flame 
+- Flame
 - Charm
 - Love
 - Blossom
@@ -87,7 +88,18 @@
 - Rainbow
 </details>
 
+<details>
+<summary>Valid Mini Pet Effect Names</summary>
+
+- Pet_Cat
+- Pet_Wolf
+- Pet_Rabbit
+- Pet_Fox
+- Pet_Pig
+- Pet_Sheep
+</details>
 
 > # TODO (planned)
+
 - more effects types
 - custom effects creator

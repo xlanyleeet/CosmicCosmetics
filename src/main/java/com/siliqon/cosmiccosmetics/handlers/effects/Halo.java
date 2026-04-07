@@ -20,14 +20,20 @@ public class Halo {
 
     public static void startForPlayer(Player player) {
         EffectType effectType = getActiveEffect(player, EffectForm.HALO);
-        if (effectType == null) return;
+        if (effectType == null)
+            return;
+        if (!plugin.isEffectFormEnabledInWorld(EffectForm.HALO, player.getWorld().getName()))
+            return;
 
         double radius = .4;
         double fullCircle = 2 * Math.PI;
         int particles = 15;
-        long[] tickCounter = {0};
+        long[] tickCounter = { 0 };
         int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            if (player.isDead() || !player.isValid() || !player.isOnline() || !player.getWorld().getPlayers().contains(player)) // TODO check if player is still
+            if (player.isDead() || !player.isValid() || !player.isOnline()
+                    || !player.getWorld().getPlayers().contains(player)) // TODO check if player is still
+                return;
+            if (!plugin.isEffectFormEnabledInWorld(EffectForm.HALO, player.getWorld().getName()))
                 return;
 
             int i = (int) (tickCounter[0] % particles);
@@ -37,27 +43,26 @@ public class Halo {
             double y = 1.95;
 
             int xOffset = 0, yOffset = 0, zOffset = 0, speed = 0, count = 1;
-            for (Player otherPlayer : Bukkit.getOnlinePlayers()) {
+            for (Player otherPlayer : player.getWorld().getPlayers()) {
                 if (otherPlayer != player && !getEffectsEnabled(otherPlayer))
                     continue;
 
                 if (effectType == EffectType.RAINBOW) {
-                    int r = (int) (Math.random() * 256), g = (int) (Math.random() * 256), b = (int) (Math.random() * 256);
+                    int r = (int) (Math.random() * 256), g = (int) (Math.random() * 256),
+                            b = (int) (Math.random() * 256);
                     int size = 1;
                     otherPlayer.spawnParticle(
                             getEffectParticle(effectType),
                             player.getLocation().add(x, y, z),
                             count, xOffset, yOffset, zOffset, speed,
-                            new Particle.DustOptions(Color.fromRGB(r, g, b), size)
-                    );
+                            new Particle.DustOptions(Color.fromRGB(r, g, b), size));
                     continue;
                 }
                 otherPlayer.spawnParticle(
                         getEffectParticle(effectType),
                         player.getLocation().add(x, y, z),
                         count, xOffset, yOffset, zOffset,
-                        speed
-                );
+                        speed);
             }
 
             tickCounter[0]++;
@@ -65,6 +70,7 @@ public class Halo {
 
         ActiveEffectData pdata = getPlayerActiveEffectData(player);
         pdata.addTaskId(EffectForm.HALO, taskId);
-        if (plugin.debugLevel >= 2) log("Registered HALO task for "+player.getName());
+        if (plugin.debugLevel >= 2)
+            log("Registered HALO task for " + player.getName());
     }
 }

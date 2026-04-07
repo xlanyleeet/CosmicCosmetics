@@ -1,0 +1,25 @@
+effects:
+  pet_cat:
+    price: 0.0
+    permission: cosmetics.pets.pet_cat
+    permission-only: true
+  pet_wolf:
+    price: 0.0
+    permission: cosmetics.pets.pet_wolf
+    permission-only: true
+  pet_rabbit:
+    price: 0.0
+    permission: cosmetics.pets.pet_rabbit
+    permission-only: true
+  pet_fox:
+    price: 0.0
+    permission: cosmetics.pets.pet_fox
+    permission-only: true
+  pet_pig:
+    price: 0.0
+    permission: cosmetics.pets.pet_pig
+    permission-only: true
+  pet_sheep:
+    price: 0.0
+    permission: cosmetics.pets.pet_sheep
+    permission-only: true

@@ -1,65 +1,65 @@
 package com.siliqon.cosmiccosmetics.guis.lib;
 
+import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
+import dev.triumphteam.gui.guis.Gui;
+import dev.triumphteam.gui.guis.GuiItem;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
-public abstract class InventoryGUI implements InventoryHandler {
+import static com.siliqon.cosmiccosmetics.utils.Utils.mm;
 
-    protected Inventory inventory;
-    protected Player player;
-    protected final Map<Integer, InventoryButton> buttonMap = new HashMap<>();
+public abstract class InventoryGUI {
 
-    public Inventory getInventory() {
-        return this.inventory;
+    protected final CosmeticsPlugin plugin;
+
+    protected InventoryGUI(CosmeticsPlugin plugin) {
+        this.plugin = plugin;
     }
 
-    public void addButton(int slot, InventoryButton button) {
-        this.buttonMap.put(slot, button);
-    }
-    public void clearButtons(boolean clearItems) {
-        if(clearItems) this.buttonMap.forEach((slot, button) -> this.inventory.clear(slot));
-        this.buttonMap.clear();
+    public final void open(Player player) {
+        Gui gui = createGui(player);
+        gui.open(player);
     }
 
-    public void decorate(Player player) throws IOException {
-        this.buttonMap.forEach((slot, button) -> {
-            ItemStack icon = button.getIconCreator().apply(player);
-            this.inventory.setItem(slot, icon);
-        });
-    }
-    public void decorateButtons(Player player) {
-        this.buttonMap.forEach((slot, button) -> {
-            ItemStack icon = button.getIconCreator().apply(player);
-            this.inventory.setItem(slot, icon);
+    protected abstract String getTitle(Player player);
+
+    protected abstract Gui createGui(Player player);
+
+    protected final GuiItem button(Player viewer, Function<Player, ItemStack> itemProvider, Consumer<Player> onClick) {
+        return new GuiItem(itemProvider.apply(viewer), event -> {
+            event.setCancelled(true);
+            if (event.getWhoClicked() instanceof Player player) {
+                onClick.accept(player);
+            }
         });
     }
 
-    @Override
-    public void onClick(InventoryClickEvent event) {
-        event.setCancelled(true);
-        int slot = event.getSlot();
-        InventoryButton button = this.buttonMap.get(slot);
-        if (button != null) {
-            button.getEventConsumer().accept(event);
+    protected final GuiItem staticItem(ItemStack stack) {
+        return new GuiItem(stack, event -> event.setCancelled(true));
+    }
+
+    protected final Gui createMenu(int rows, String title, ItemStack background) {
+        Gui gui = Gui.gui()
+                .rows(rows)
+                .title(mm(title))
+                .create();
+
+        gui.setDefaultClickAction(event -> event.setCancelled(true));
+        for (int i = 0; i < rows * 9; i++) {
+            gui.setItem(i, staticItem(background));
         }
+
+        return gui;
     }
 
-    @Override
-    public void onOpen(InventoryOpenEvent event) throws IOException {
-        this.player = (Player) event.getPlayer();
-        this.decorate(this.player);
+    protected final void setItem(Gui gui, int slot, GuiItem item) {
+        if (slot < 0) {
+            return;
+        }
+
+        gui.setItem(slot, item);
     }
-
-    @Override
-    public void onClose(InventoryCloseEvent event) {}
-
-    protected abstract void createInventory();
 }

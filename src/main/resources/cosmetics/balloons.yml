@@ -1,0 +1,33 @@
+effects:
+  balloon_red:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_red
+    permission-only: false
+  balloon_blue:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_blue
+    permission-only: false
+  balloon_green:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_green
+    permission-only: false
+  balloon_yellow:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_yellow
+    permission-only: false
+  balloon_purple:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_purple
+    permission-only: false
+  balloon_orange:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_orange
+    permission-only: false
+  balloon_cyan:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_cyan
+    permission-only: false
+  balloon_pink:
+    price: 100.0
+    permission: cosmetics.balloons.balloon_pink
+    permission-only: false

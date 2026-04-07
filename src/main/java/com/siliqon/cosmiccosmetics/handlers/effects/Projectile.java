@@ -17,13 +17,20 @@ public class Projectile {
 
     public static void startForPlayer(Player player) {
         EffectType effectType = getActiveEffect(player, EffectForm.PROJECTILE);
-        if (effectType == null) return;
+        if (effectType == null)
+            return;
+        if (!plugin.isEffectFormEnabledInWorld(EffectForm.PROJECTILE, player.getWorld().getName()))
+            return;
 
         int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+            if (!plugin.isEffectFormEnabledInWorld(EffectForm.PROJECTILE, player.getWorld().getName()))
+                return;
+
             player.getWorld().getEntitiesByClass(org.bukkit.entity.Projectile.class).stream()
-                    .filter(projectile -> projectile.getShooter() == player && !projectile.isDead() && projectile.isValid() && !projectile.isOnGround())
+                    .filter(projectile -> projectile.getShooter() == player && !projectile.isDead()
+                            && projectile.isValid() && !projectile.isOnGround())
                     .forEach(projectile -> {
-                        for (Player otherPlayer : Bukkit.getOnlinePlayers()) {
+                        for (Player otherPlayer : player.getWorld().getPlayers()) {
                             if (otherPlayer != player && !getEffectsEnabled(otherPlayer))
                                 continue;
 
@@ -35,14 +42,14 @@ public class Projectile {
                             otherPlayer.spawnParticle(
                                     particle, loc, density,
                                     xOffset, yOffset, zOffset, speed,
-                                    null, otherPlayer == player
-                            );
+                                    null, otherPlayer == player);
                         }
                     });
         }, 0L, 3L);
 
         ActiveEffectData pdata = getPlayerActiveEffectData(player);
         pdata.addTaskId(EffectForm.PROJECTILE, taskId);
-        if (plugin.debugLevel >= 2) log("Registered PROJECTILE task for "+player.getName());
+        if (plugin.debugLevel >= 2)
+            log("Registered PROJECTILE task for " + player.getName());
     }
 }

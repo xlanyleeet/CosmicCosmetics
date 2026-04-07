@@ -1,0 +1,37 @@
+effects:
+  splash:
+    price: 100.0
+    permission: cosmetics.halo.splash
+    permission-only: false
+  ender:
+    price: 100.0
+    permission: cosmetics.halo.ender
+    permission-only: false
+  flame:
+    price: 100.0
+    permission: cosmetics.halo.flame
+    permission-only: false
+  charm:
+    price: 100.0
+    permission: cosmetics.halo.charm
+    permission-only: false
+  love:
+    price: 100.0
+    permission: cosmetics.halo.love
+    permission-only: false
+  blossom:
+    price: 100.0
+    permission: cosmetics.halo.blossom
+    permission-only: false
+  enchanted:
+    price: 100.0
+    permission: cosmetics.halo.enchanted
+    permission-only: false
+  tears:
+    price: 100.0
+    permission: cosmetics.halo.tears
+    permission-only: false
+  rainbow:
+    price: 100.0
+    permission: cosmetics.halo.rainbow
+    permission-only: false

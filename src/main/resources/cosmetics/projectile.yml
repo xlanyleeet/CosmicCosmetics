@@ -1,0 +1,37 @@
+effects:
+  splash:
+    price: 100.0
+    permission: cosmetics.projectile.splash
+    permission-only: false
+  ender:
+    price: 100.0
+    permission: cosmetics.projectile.ender
+    permission-only: false
+  flame:
+    price: 100.0
+    permission: cosmetics.projectile.flame
+    permission-only: false
+  charm:
+    price: 100.0
+    permission: cosmetics.projectile.charm
+    permission-only: false
+  love:
+    price: 100.0
+    permission: cosmetics.projectile.love
+    permission-only: false
+  blossom:
+    price: 100.0
+    permission: cosmetics.projectile.blossom
+    permission-only: false
+  enchanted:
+    price: 100.0
+    permission: cosmetics.projectile.enchanted
+    permission-only: false
+  tears:
+    price: 100.0
+    permission: cosmetics.projectile.tears
+    permission-only: false
+  musical:
+    price: 100.0
+    permission: cosmetics.projectile.musical
+    permission-only: false

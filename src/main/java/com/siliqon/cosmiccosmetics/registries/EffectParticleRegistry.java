@@ -19,6 +19,24 @@ public class EffectParticleRegistry extends Registry<EffectType, Particle> {
         this.register(EffectType.MUSICAL, Particle.NOTE);
         this.register(EffectType.RAINBOW, Particle.DUST);
         this.register(EffectType.CLOUDY, Particle.EFFECT);
+        this.register(EffectType.CAPE_CRIMSON, Particle.DUST);
+        this.register(EffectType.CAPE_AZURE, Particle.DUST);
+        this.register(EffectType.CAPE_EMERALD, Particle.DUST);
+        this.register(EffectType.CAPE_VIOLET, Particle.DUST);
+        this.register(EffectType.CAPE_RAINBOW, Particle.DUST);
+        this.register(EffectType.CAPE_GOLD, Particle.DUST);
+        this.register(EffectType.CAPE_ICE, Particle.DUST);
+        this.register(EffectType.CAPE_VOID, Particle.DUST);
+        this.register(EffectType.CAPE_SUNSET, Particle.DUST);
+        this.register(EffectType.BALLOONS, Particle.DUST);
+        this.register(EffectType.BALLOON_RED, Particle.DUST);
+        this.register(EffectType.BALLOON_BLUE, Particle.DUST);
+        this.register(EffectType.BALLOON_GREEN, Particle.DUST);
+        this.register(EffectType.BALLOON_YELLOW, Particle.DUST);
+        this.register(EffectType.BALLOON_PURPLE, Particle.DUST);
+        this.register(EffectType.BALLOON_ORANGE, Particle.DUST);
+        this.register(EffectType.BALLOON_CYAN, Particle.DUST);
+        this.register(EffectType.BALLOON_PINK, Particle.DUST);
     }
 
     public static EffectParticleRegistry getInstance() {

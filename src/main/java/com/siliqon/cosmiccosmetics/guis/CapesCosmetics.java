@@ -4,19 +4,19 @@ import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import org.bukkit.entity.Player;
 
-public class HaloCosmetics extends EffectSelectionMenu {
+public class CapesCosmetics extends EffectSelectionMenu {
 
-    public HaloCosmetics(CosmeticsPlugin plugin) {
+    public CapesCosmetics(CosmeticsPlugin plugin) {
         super(plugin);
     }
 
     @Override
     protected EffectForm getForm() {
-        return EffectForm.HALO;
+        return EffectForm.CAPES;
     }
 
     @Override
     protected String getMenuTitle(Player player) {
-        return plugin.getLang(player).getHaloEffectsMenuName();
+        return plugin.getLang(player).getCapesEffectsMenuName();
     }
 }

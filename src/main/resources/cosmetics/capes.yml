@@ -1,0 +1,37 @@
+effects:
+  cape_crimson:
+    price: 120.0
+    permission: cosmetics.capes.cape_crimson
+    permission-only: false
+  cape_azure:
+    price: 120.0
+    permission: cosmetics.capes.cape_azure
+    permission-only: false
+  cape_emerald:
+    price: 120.0
+    permission: cosmetics.capes.cape_emerald
+    permission-only: false
+  cape_violet:
+    price: 120.0
+    permission: cosmetics.capes.cape_violet
+    permission-only: false
+  cape_rainbow:
+    price: 180.0
+    permission: cosmetics.capes.cape_rainbow
+    permission-only: false
+  cape_gold:
+    price: 140.0
+    permission: cosmetics.capes.cape_gold
+    permission-only: false
+  cape_ice:
+    price: 140.0
+    permission: cosmetics.capes.cape_ice
+    permission-only: false
+  cape_void:
+    price: 160.0
+    permission: cosmetics.capes.cape_void
+    permission-only: false
+  cape_sunset:
+    price: 150.0
+    permission: cosmetics.capes.cape_sunset
+    permission-only: false

@@ -4,6 +4,9 @@ public enum EffectForm {
     PROJECTILE,
     KILL,
     HALO,
+    CAPES,
+    BALLOONS,
+    PETS,
     TRAIL,
     GLOW,
 }

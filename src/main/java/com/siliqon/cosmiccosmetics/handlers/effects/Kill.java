@@ -3,7 +3,6 @@ package com.siliqon.cosmiccosmetics.handlers.effects;
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import com.siliqon.cosmiccosmetics.enums.EffectType;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -25,15 +24,19 @@ public class Kill implements Listener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         Player killer = player.getKiller();
-        if (killer == null) return;
+        if (killer == null)
+            return;
 
         EffectType effectType = getActiveEffect(killer, EffectForm.KILL);
-        if (effectType == null) return;
+        if (effectType == null)
+            return;
+        if (!plugin.isEffectFormEnabledInWorld(EffectForm.KILL, killer.getWorld().getName()))
+            return;
 
         Particle particle = getEffectParticle(effectType);
         int density = getEffectDensity(effectType);
 
-        for (Player otherPlayer : Bukkit.getOnlinePlayers()) {
+        for (Player otherPlayer : player.getWorld().getPlayers()) {
             if (otherPlayer != player && !getEffectsEnabled(otherPlayer))
                 continue;
             if (effectType == EffectType.RAINBOW) {
@@ -42,18 +45,19 @@ public class Kill implements Listener {
                 double xOffset = .3, yOffset = .5, zOffset = .3, speed = .05;
 
                 otherPlayer.spawnParticle(particle,
-                        player.getLocation().add(0,playerLocYOffset,0),
+                        player.getLocation().add(0, playerLocYOffset, 0),
                         count, xOffset, yOffset, zOffset, speed,
-                        new Particle.DustOptions(Color.fromRGB(r,g,b), size));
+                        new Particle.DustOptions(Color.fromRGB(r, g, b), size));
                 continue;
             }
 
-            int count = density*10, playerLocYOffset = 1;
+            int count = density * 10, playerLocYOffset = 1;
             double xOffset = .4, yOffset = .75, zOffset = .4, speed = .1;
             otherPlayer.spawnParticle(particle,
-                    player.getLocation().add(0,playerLocYOffset,0),
+                    player.getLocation().add(0, playerLocYOffset, 0),
                     count, xOffset, yOffset, zOffset, speed);
         }
-        if (plugin.debugLevel >= 2) log("Showed kill effect of " + player.getName());
+        if (plugin.debugLevel >= 2)
+            log("Showed kill effect of " + player.getName());
     }
 }

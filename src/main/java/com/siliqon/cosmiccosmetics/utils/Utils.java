@@ -1,19 +1,38 @@
 package com.siliqon.cosmiccosmetics.utils;
 
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Utils {
     private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
     public static void sendMessage(Player player, String message, Boolean prefixed) {
-        if (prefixed) player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.PREFIX + message));
-        else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        String prefix = plugin.getLang(player).getPrefix();
+        String payload = prefixed ? prefix + message : message;
+        player.sendMessage(mm(payload));
+    }
+
+    public static void sendMessage(CommandSender sender, String message, Boolean prefixed) {
+        String payload = prefixed ? plugin.PREFIX + message : message;
+        sender.sendMessage(mm(payload));
+    }
+
+    public static Component mm(String input) {
+        return MINI_MESSAGE.deserialize(input == null ? "" : input);
+    }
+
+    public static String mmToLegacy(String input) {
+        return LegacyComponentSerializer.legacySection().serialize(mm(input));
     }
 
     public static boolean checkPlayerPermission(Player player, String permission) {
-        if (plugin.isVaultEnabled()) return plugin.getVaultPermissions().has(player, permission);
+        if (plugin.isVaultEnabled())
+            return plugin.getVaultPermissions().has(player, permission);
         return player.hasPermission(permission);
     }
 

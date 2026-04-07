@@ -1,0 +1,225 @@
+﻿prefix: "<aqua><bold>Cosmetics <gray>> <reset>"
+trail-effects-item-name: "<gold>Trail Effects"
+trail-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+projectile-effects-item-name: "<gold>Projectile Effects"
+projectile-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+kill-effects-item-name: "<gold>Kill Effects"
+kill-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+balloons-effects-item-name: "<gold>Air Balloons"
+balloons-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+pets-effects-item-name: "<gold>Mini Pets"
+pets-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+capes-effects-item-name: "<gold>Particle Capes"
+capes-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+halo-effects-item-name: "<gold>Halo Effects"
+halo-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+category-unlocked-lore-line: "<gray>Unlocked: <green>%unlocked_count%<gray>/%total_count%"
+reset-all-effects-item-name: "<red>Reset All Effects"
+reset-all-effects-item-lore:
+  - " "
+  - "<gray>Turn off all active effects."
+effect-not-unlocked-name: "<gray>(<red>LOCKED<gray>) %effect_name%"
+effect-not-unlocked-lore:
+  - " "
+  - "<gray>Price: <gold>$%effect_price%"
+  - "<yellow>Click to purchase"
+effect-permission-only-lore:
+  - " "
+  - "<red>Requires a permission node"
+  - "<gray>Ask staff for access"
+effect-selected-name: "<gray>(<green>SELECTED<gray>) %effect_name%"
+reset-effect-item-name: "<red>Reset Effect"
+back-button-name: "<red>Go Back"
+main-menu-name: "<dark_purple><bold>Cosmetic Options"
+projectile-effects-menu-name: "<gold>Projectile Effects"
+trail-effects-menu-name: "<gold>Trail Effects"
+kill-effects-menu-name: "<gold>Kill Effects"
+balloons-effects-menu-name: "<gold>Air Balloons"
+pets-effects-menu-name: "<gold>Mini Pets"
+capes-effects-menu-name: "<gold>Particle Capes"
+halo-effects-menu-name: "<gold>Halo Effects"
+splash-effect-name: "<aqua>Splash"
+splash-effect-description:
+  - " "
+  - "<gray>Splish splash goes the water"
+ender-effect-name: "<dark_purple>Ender"
+ender-effect-description:
+  - " "
+  - "<gray>Enderman cosplay"
+flame-effect-name: "<gold>Flame"
+flame-effect-description:
+  - " "
+  - "<gray>Don't play with fire kids!"
+charm-effect-name: "<green>Charm"
+charm-effect-description:
+  - " "
+  - "<gray>WARNING: Charming!"
+love-effect-name: "<red>Love"
+love-effect-description:
+  - " "
+  - "<gray>Love em like you hate em"
+blossom-effect-name: "<light_purple>Blossom"
+blossom-effect-description:
+  - " "
+  - "<gray>Like a cherry... blossom"
+enchanted-effect-name: "<yellow>Enchanted"
+enchanted-effect-description:
+  - " "
+  - "<gray>Truly enlightened"
+tears-effect-name: "<blue>Tears"
+tears-effect-description:
+  - " "
+  - "<gray>Cry me a river"
+musical-effect-name: "<green>Musical"
+musical-effect-description:
+  - " "
+  - "<gray>*Intense piano playing*"
+rainbow-effect-name: "<dark_purple>R<light_purple>a<dark_blue>i<green>n<yellow>b<gold>o<red>w"
+rainbow-effect-description:
+  - " "
+  - "<gray>Nyan cat activated."
+cloud-effect-name: "<gray>Cloudy"
+cloud-effect-description:
+  - " "
+  - "<gray>Cloudy with a chance"
+  - "<gray>of particles"
+cape-crimson-effect-name: "<red>Crimson Cape"
+cape-crimson-effect-description:
+  - " "
+  - "<gray>A deep red particle cape"
+  - "<gray>flowing behind you"
+cape-azure-effect-name: "<blue>Azure Cape"
+cape-azure-effect-description:
+  - " "
+  - "<gray>A cool blue particle cape"
+  - "<gray>flowing behind you"
+cape-emerald-effect-name: "<green>Emerald Cape"
+cape-emerald-effect-description:
+  - " "
+  - "<gray>A lush green particle cape"
+  - "<gray>flowing behind you"
+cape-violet-effect-name: "<dark_purple>Violet Cape"
+cape-violet-effect-description:
+  - " "
+  - "<gray>A royal purple particle cape"
+  - "<gray>flowing behind you"
+cape-rainbow-effect-name: "<light_purple>Rainbow Cape"
+cape-rainbow-effect-description:
+  - " "
+  - "<gray>A colorful animated cape"
+  - "<gray>flowing behind you"
+cape-gold-effect-name: "<yellow>Golden Cape"
+cape-gold-effect-description:
+  - " "
+  - "<gray>A bright golden particle cape"
+  - "<gray>for a regal look"
+cape-ice-effect-name: "<aqua>Ice Cape"
+cape-ice-effect-description:
+  - " "
+  - "<gray>A frosty light-blue cape"
+  - "<gray>that shimmers in motion"
+cape-void-effect-name: "<dark_gray>Void Cape"
+cape-void-effect-description:
+  - " "
+  - "<gray>A dark cosmic cape"
+  - "<gray>with deep shadow tones"
+cape-sunset-effect-name: "<gold>Sunset Cape"
+cape-sunset-effect-description:
+  - " "
+  - "<gray>An orange dusk-inspired cape"
+  - "<gray>with warm glow colors"
+balloons-effect-name: "<light_purple>Air Balloons"
+balloons-effect-description:
+  - " "
+  - "<gray>A bunch of floating balloons"
+  - "<gray>follows you around"
+red-balloon-effect-name: "<red>Red Balloon"
+red-balloon-effect-description:
+  - " "
+  - "<gray>A bright red balloon"
+  - "<gray>tied with a lead"
+blue-balloon-effect-name: "<blue>Blue Balloon"
+blue-balloon-effect-description:
+  - " "
+  - "<gray>A calm blue balloon"
+  - "<gray>tied with a lead"
+green-balloon-effect-name: "<green>Green Balloon"
+green-balloon-effect-description:
+  - " "
+  - "<gray>A vivid green balloon"
+  - "<gray>tied with a lead"
+yellow-balloon-effect-name: "<yellow>Yellow Balloon"
+yellow-balloon-effect-description:
+  - " "
+  - "<gray>A sunny yellow balloon"
+  - "<gray>tied with a lead"
+purple-balloon-effect-name: "<dark_purple>Purple Balloon"
+purple-balloon-effect-description:
+  - " "
+  - "<gray>A royal purple balloon"
+  - "<gray>tied with a lead"
+orange-balloon-effect-name: "<gold>Orange Balloon"
+orange-balloon-effect-description:
+  - " "
+  - "<gray>A bright orange balloon"
+  - "<gray>tied with a lead"
+cyan-balloon-effect-name: "<aqua>Cyan Balloon"
+cyan-balloon-effect-description:
+  - " "
+  - "<gray>A fresh cyan balloon"
+  - "<gray>tied with a lead"
+pink-balloon-effect-name: "<light_purple>Pink Balloon"
+pink-balloon-effect-description:
+  - " "
+  - "<gray>A sweet pink balloon"
+  - "<gray>tied with a lead"
+pet-cat-effect-name: "<yellow>Mini Cat"
+pet-cat-effect-description:
+  - " "
+  - "<gray>A tiny cat follows you around"
+pet-wolf-effect-name: "<gray>Mini Wolf"
+pet-wolf-effect-description:
+  - " "
+  - "<gray>A tiny wolf runs right behind you"
+pet-rabbit-effect-name: "<white>Mini Rabbit"
+pet-rabbit-effect-description:
+  - " "
+  - "<gray>A tiny rabbit hops after you"
+pet-fox-effect-name: "<gold>Mini Fox"
+pet-fox-effect-description:
+  - " "
+  - "<gray>A tiny fox follows your trail"
+pet-pig-effect-name: "<light_purple>Mini Pig"
+pet-pig-effect-description:
+  - " "
+  - "<gray>A tiny pig runs behind you"
+pet-sheep-effect-name: "<white>Mini Sheep"
+pet-sheep-effect-description:
+  - " "
+  - "<gray>A tiny sheep follows your steps"
+effect-enabled: "<aqua>Enabled %effect_name%"
+effect-disabled: "<red>Disabled %effect_name%"
+disabled-all-effects-message: "<red>All active cosmetics have been turned off."
+cosmetics-disabled-other: "<red>You will no longer see other player's cosmetics."
+cosmetics-enabled-other: "<green>You will now see other player's cosmetics."
+purchases-disabled-message: "<red>Cosmetic purchases are disabled by config."
+purchases-need-vault-message: "<red>Vault economy provider is required to buy cosmetics."
+purchase-insufficient-funds: "<red>Not enough money. Required: <gold>$%effect_price%"
+purchase-successful: "<green>Purchased %effect_name% for <gold>$%effect_price%"
+purchase-already-owned: "<yellow>You already own %effect_name%"
+purchase-failed: "<red>Purchase failed due to a database error. Your balance was refunded."
+no-permission-message: "<red>You do not have permission to use this cosmetic."

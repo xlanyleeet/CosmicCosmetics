@@ -1,0 +1,46 @@
+name: CosmicCosmetics
+version: '${project.version}'
+main: com.siliqon.cosmiccosmetics.CosmeticsPlugin
+loader: com.siliqon.cosmiccosmetics.CosmeticsPluginLoader
+api-version: '1.21.1'
+prefix: CosmicCosmetics
+authors: [SiliQon]
+description: An EULA friendly plugin that allows players to use cool cosmetics
+dependencies:
+  server:
+    Vault:
+      load: BEFORE
+      required: false
+      join-classpath: true
+
+permissions:
+  cosmetics.use:
+    description: Allows usage of /cosmetics
+    default: 'true'
+  cosmetics.toggle:
+    description: Allows usage of /cosmetics toggle
+    default: 'true'
+  cosmetics.version:
+    description: Allows usage of /cosmetics version
+    default: 'op'
+  cosmetics.kill.*:
+    description: Allows usage of all kill effects
+    default: 'op'
+  cosmetics.trail.*:
+    description: Allows usage of all trail effects
+    default: 'op'
+  cosmetics.projectile.*:
+    description: Allows usage of all projectile effects
+    default: 'op'
+  cosmetics.halo.*:
+    description: Allows usage of all halo effects
+    default: 'op'
+  cosmetics.capes.*:
+    description: Allows usage of all particle cape effects
+    default: 'op'
+  cosmetics.balloons.*:
+    description: Allows usage of all balloon effects
+    default: 'op'
+  cosmetics.pets.*:
+    description: Allows usage of all mini pet effects
+    default: 'op'
