@@ -17,6 +17,12 @@ import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Wolf;
 import org.bukkit.util.Vector;
 
+import com.destroystokyo.paper.entity.ai.Goal;
+import com.destroystokyo.paper.entity.ai.GoalKey;
+import com.destroystokyo.paper.entity.ai.GoalType;
+import org.bukkit.NamespacedKey;
+import java.util.EnumSet;
+
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -98,7 +104,6 @@ public class Pets {
                 return;
             }
 
-            followOwner(player, current.pet);
             syncVisibility(player, current);
         }, 0L, 1L);
 
@@ -210,34 +215,78 @@ public class Pets {
             ageable.setBaby();
         }
 
-        pet.setAware(false);
-        pet.setAI(false);
+        pet.setAware(true);
+        pet.setTarget(null);
+
+        Bukkit.getMobGoals().removeAllGoals(pet);
+        Bukkit.getMobGoals().addGoal(pet, 0, new PetFollowGoal(pet, player));
 
         return pet;
     }
 
-    private static void followOwner(Player owner, Mob pet) {
-        Location ownerLocation = owner.getLocation();
-        Location targetLocation = calculatePetTargetLocation(ownerLocation);
-        Location petLocation = pet.getLocation();
+    private static class PetFollowGoal implements Goal<Mob> {
+        private final GoalKey<Mob> key;
+        private final Mob pet;
+        private final Player owner;
 
-        double distanceSquared = petLocation.distanceSquared(targetLocation);
-        if (distanceSquared > 144.0) {
-            pet.teleport(targetLocation);
-            return;
+        public PetFollowGoal(Mob pet, Player owner) {
+            this.key = GoalKey.of(Mob.class, new NamespacedKey(plugin, "pet_follow_" + UUID.randomUUID()));
+            this.pet = pet;
+            this.owner = owner;
         }
 
-        if (distanceSquared > 0.04) {
-            Vector delta = targetLocation.toVector().subtract(petLocation.toVector());
-            double distance = Math.sqrt(distanceSquared);
-            double step = Math.min(0.35, distance);
-            Vector move = delta.multiply(step / Math.max(distance, 1.0E-6));
-            Location next = petLocation.clone().add(move);
-            pet.teleport(next);
-            petLocation = next;
+        @Override
+        public boolean shouldActivate() {
+            return owner != null && owner.isValid() && pet != null && pet.isValid() 
+                && owner.getWorld().equals(pet.getWorld());
         }
 
-        pet.setRotation(ownerLocation.getYaw(), petLocation.getPitch());
+        @Override
+        public boolean shouldStayActive() {
+            return shouldActivate();
+        }
+
+        @Override
+        public void start() {}
+
+        @Override
+        public void stop() {
+            pet.getPathfinder().stopPathfinding();
+        }
+
+        @Override
+        public void tick() {
+            Location petLoc = pet.getLocation();
+            Location ownerLoc = owner.getLocation();
+            
+            double distSq = petLoc.distanceSquared(ownerLoc);
+
+            if (distSq > 144.0) {
+                pet.teleport(ownerLoc);
+            } else if (distSq > 9.0) {
+                pet.getPathfinder().moveTo(ownerLoc, 1.5D);
+            } else {
+                pet.getPathfinder().stopPathfinding();
+                
+                Vector dir = ownerLoc.toVector().subtract(petLoc.toVector());
+                dir.setY(0);
+                if (dir.lengthSquared() > 0) {
+                    Location look = petLoc.clone();
+                    look.setDirection(dir);
+                    pet.setRotation(look.getYaw(), pet.getLocation().getPitch());
+                }
+            }
+        }
+
+        @Override
+        public GoalKey<Mob> getKey() {
+            return key;
+        }
+
+        @Override
+        public EnumSet<GoalType> getTypes() {
+            return EnumSet.of(GoalType.MOVE, GoalType.LOOK);
+        }
     }
 
     private static Location calculatePetTargetLocation(Location ownerLocation) {

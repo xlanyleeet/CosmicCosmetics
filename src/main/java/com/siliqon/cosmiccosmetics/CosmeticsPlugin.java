@@ -25,7 +25,6 @@ import com.siliqon.cosmiccosmetics.guis.lib.GUIManager;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -138,7 +137,7 @@ public final class CosmeticsPlugin extends JavaPlugin {
     private void registerCommandCompletions() {
         commandManager.getCommandCompletions().registerCompletion("AllPlayers", context -> {
             List<String> nameList = new ArrayList<>();
-            for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 nameList.add(player.getName());
             }
             return nameList;
