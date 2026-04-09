@@ -136,9 +136,11 @@ public class Effects {
             playerData = new ActiveEffectData(player.getUniqueId(), new HashMap<>(), new HashMap<>());
 
         if (type == null) {
-            playerData.removeEffect(form);
+            removeActiveEffect(player, form);
             return;
         }
+
+        removeActiveEffect(player, form);
 
         playerData.addEffect(form, type);
         if (!plugin.playerActiveEffects.containsKey(player.getUniqueId()))

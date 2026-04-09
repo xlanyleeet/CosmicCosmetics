@@ -335,7 +335,7 @@ public class Storage {
     }
 
     private boolean shouldSkipPersistence(UUID playerUUID) {
-        return Bukkit.getOfflinePlayer(playerUUID).isOp();
+        return false;
     }
 
     private ActiveEffectData copyActiveEffectData(UUID playerUUID, ActiveEffectData source) {
