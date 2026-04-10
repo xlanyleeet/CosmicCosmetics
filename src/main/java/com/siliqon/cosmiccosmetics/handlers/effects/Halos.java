@@ -27,10 +27,23 @@ public class Halos {
         if (!plugin.isEffectFormEnabledInWorld(EffectForm.HALO, player.getWorld().getName()))
             return;
 
+        Particle p = getEffectParticle(haloType);
+        Particle.DustOptions gold = null;
+        Particle.DustOptions ruby = null;
+
+        if (haloType == Halo.CROWN) {
+            gold = new Particle.DustOptions(Color.fromRGB(255, 215, 0), 0.7f);
+            ruby = new Particle.DustOptions(Color.fromRGB(220, 20, 60), 0.8f);
+        }
+
         double radius = .4;
         double fullCircle = 2 * Math.PI;
         int particles = 15;
         long[] tickCounter = { 0 };
+
+        final Particle.DustOptions finalGold = gold;
+        final Particle.DustOptions finalRuby = ruby;
+
         int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             if (player.isDead() || !player.isValid() || !player.isOnline()
                     || !player.getWorld().getPlayers().contains(player))
@@ -44,26 +57,22 @@ public class Halos {
                     return;
                 }
                 Location base = player.getEyeLocation().add(0, 0.4, 0);
-                Particle p = getEffectParticle(haloType);
                 for (Player otherPlayer : player.getWorld().getPlayers()) {
                     if (otherPlayer != player && !getEffectsEnabled(otherPlayer))
                         continue;
 
-                    Particle.DustOptions gold = new Particle.DustOptions(Color.fromRGB(255, 215, 0), 0.7f);
-                    Particle.DustOptions ruby = new Particle.DustOptions(Color.fromRGB(220, 20, 60), 0.8f);
-
                     for (int j = 0; j < 360; j += 12) {
                         double rAngle = Math.toRadians(j);
                         Location newLoc = base.clone().add(Math.sin(rAngle) * 0.35, 0, Math.cos(rAngle) * 0.35);
-                        otherPlayer.spawnParticle(p, newLoc, 1, 0, 0, 0, 0, gold);
+                        otherPlayer.spawnParticle(p, newLoc, 1, 0, 0, 0, 0, finalGold);
 
                         if (j % 45 == 0) {
                             Location spikeLoc = newLoc.clone().add(0, 0.1, 0);
-                            otherPlayer.spawnParticle(p, spikeLoc, 1, 0, 0, 0, 0, gold);
+                            otherPlayer.spawnParticle(p, spikeLoc, 1, 0, 0, 0, 0, finalGold);
                             spikeLoc.add(0, 0.1, 0);
-                            otherPlayer.spawnParticle(p, spikeLoc, 1, 0, 0, 0, 0, gold);
+                            otherPlayer.spawnParticle(p, spikeLoc, 1, 0, 0, 0, 0, finalGold);
                             spikeLoc.add(0, 0.1, 0);
-                            otherPlayer.spawnParticle(p, spikeLoc, 1, 0, 0, 0, 0, ruby);
+                            otherPlayer.spawnParticle(p, spikeLoc, 1, 0, 0, 0, 0, finalRuby);
                         }
                     }
                 }
@@ -76,24 +85,30 @@ public class Halos {
             double y = 1.95;
 
             int xOffset = 0, yOffset = 0, zOffset = 0, speed = 0, count = 1;
+            Location currentLoc = player.getLocation().add(x, y, z);
+
+            // For Rainbow, pre-calculate the color setup once per tick, not per player
+            Particle.DustOptions rainbowOptions = null;
+            if (haloType == Halo.RAINBOW) {
+                int r = (int) (Math.random() * 256), g = (int) (Math.random() * 256), b = (int) (Math.random() * 256);
+                rainbowOptions = new Particle.DustOptions(Color.fromRGB(r, g, b), 1f);
+            }
+
             for (Player otherPlayer : player.getWorld().getPlayers()) {
                 if (otherPlayer != player && !getEffectsEnabled(otherPlayer))
                     continue;
 
                 if (haloType == Halo.RAINBOW) {
-                    int r = (int) (Math.random() * 256), g = (int) (Math.random() * 256),
-                            b = (int) (Math.random() * 256);
-                    int size = 1;
                     otherPlayer.spawnParticle(
-                            getEffectParticle(haloType),
-                            player.getLocation().add(x, y, z),
+                            p,
+                            currentLoc,
                             count, xOffset, yOffset, zOffset, speed,
-                            new Particle.DustOptions(Color.fromRGB(r, g, b), size));
+                            rainbowOptions);
                     continue;
                 }
                 otherPlayer.spawnParticle(
-                        getEffectParticle(haloType),
-                        player.getLocation().add(x, y, z),
+                        p,
+                        currentLoc,
                         count, xOffset, yOffset, zOffset,
                         speed);
             }

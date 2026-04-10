@@ -229,15 +229,13 @@ public class Storage {
                     }
                 }
 
-                try (PreparedStatement statement = connection
-                        .prepareStatement("DELETE FROM cc_player_purchases WHERE uuid = ?")) {
-                    statement.setString(1, playerUUID.toString());
-                    statement.executeUpdate();
-                }
+                if (purchasedEffects != null && !purchasedEffects.isEmpty()) {
+                    String sql = plugin.getConfigFile().getStorageType() != null
+                            && plugin.getConfigFile().getStorageType().equalsIgnoreCase("MARIADB")
+                                    ? "INSERT IGNORE INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)"
+                                    : "INSERT OR IGNORE INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)";
 
-                if (purchasedEffects != null) {
-                    try (PreparedStatement statement = connection.prepareStatement(
-                            "INSERT INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)")) {
+                    try (PreparedStatement statement = connection.prepareStatement(sql)) {
                         for (Enum<?> effectType : purchasedEffects) {
                             if (effectType != null) {
                                 statement.setString(1, playerUUID.toString());

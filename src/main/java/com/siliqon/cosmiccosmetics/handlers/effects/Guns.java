@@ -21,15 +21,19 @@ import org.bukkit.metadata.FixedMetadataValue;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+
+import java.util.concurrent.TimeUnit;
 import java.util.UUID;
 
 import static com.siliqon.cosmiccosmetics.utils.Effects.getActiveEffect;
 
 public class Guns implements Listener {
     private final CosmeticsPlugin plugin;
-    private final Map<UUID, Long> cooldowns = new HashMap<>();
+    private final Cache<UUID, Long> cooldowns = CacheBuilder.newBuilder()
+            .expireAfterWrite(2, TimeUnit.SECONDS)
+            .build();
 
     public Guns(CosmeticsPlugin plugin) {
         this.plugin = plugin;
@@ -79,8 +83,8 @@ public class Guns implements Listener {
         }
 
         long now = System.currentTimeMillis();
-        long lastUse = cooldowns.getOrDefault(player.getUniqueId(), 0L);
-        if (now - lastUse < 1000) { // 1 second cooldown
+        Long lastUse = cooldowns.getIfPresent(player.getUniqueId());
+        if (lastUse != null && now - lastUse < 1000) { // 1 second cooldown
             return;
         }
         cooldowns.put(player.getUniqueId(), now);
@@ -111,52 +115,52 @@ public class Guns implements Listener {
 
         Location loc = entity.getLocation();
 
+        Runnable particleTask = null;
         switch (gunType) {
             case SNOWBALL:
                 loc.getWorld().spawnParticle(Particle.SNOWFLAKE, loc, 20, 0.5, 0.5, 0.5, 0.1);
                 loc.getWorld().playSound(loc, Sound.BLOCK_SNOW_BREAK, 1f, 1f);
+                particleTask = () -> loc.getWorld().spawnParticle(Particle.SNOWFLAKE, loc, 5, 0.7, 0.7, 0.7, 0.02);
                 break;
             case FIREBALL:
                 loc.getWorld().spawnParticle(Particle.FLAME, loc, 30, 0.5, 0.5, 0.5, 0.1);
                 loc.getWorld().playSound(loc, Sound.ENTITY_GHAST_SHOOT, 1f, 1f);
+                particleTask = () -> {
+                    loc.getWorld().spawnParticle(Particle.FLAME, loc, 5, 0.7, 0.7, 0.7, 0.02);
+                    loc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, 2, 0.7, 0.7, 0.7, 0.02);
+                };
                 break;
             case EXPLOSION:
                 loc.getWorld().spawnParticle(Particle.EXPLOSION, loc, 5, 1, 1, 1, 0);
                 loc.getWorld().playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f);
+                particleTask = () -> loc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, 10, 1.5, 1.5, 1.5,
+                        0.05);
                 break;
             case METEOR:
                 loc.getWorld().spawnParticle(Particle.LAVA, loc, 40, 1, 1, 1, 0.1);
                 loc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, 20, 1, 1, 1, 0.05);
                 loc.getWorld().playSound(loc, Sound.ITEM_TRIDENT_THUNDER, 1f, 0.5f);
+                particleTask = () -> {
+                    loc.getWorld().spawnParticle(Particle.LAVA, loc, 10, 1.5, 1.5, 1.5, 0.02);
+                    loc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, 5, 1.5, 1.5, 1.5, 0.05);
+                };
                 break;
         }
 
-        new org.bukkit.scheduler.BukkitRunnable() {
-            int ticks = 0;
+        if (particleTask != null) {
+            Runnable finalParticleTask = particleTask;
+            new org.bukkit.scheduler.BukkitRunnable() {
+                int ticks = 0;
 
-            @Override
-            public void run() {
-                if (ticks++ >= 20) {
-                    this.cancel();
-                    return;
+                @Override
+                public void run() {
+                    if (ticks++ >= 20) {
+                        this.cancel();
+                        return;
+                    }
+                    finalParticleTask.run();
                 }
-                switch (gunType) {
-                    case SNOWBALL:
-                        loc.getWorld().spawnParticle(Particle.SNOWFLAKE, loc, 5, 0.7, 0.7, 0.7, 0.02);
-                        break;
-                    case FIREBALL:
-                        loc.getWorld().spawnParticle(Particle.FLAME, loc, 5, 0.7, 0.7, 0.7, 0.02);
-                        loc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, 2, 0.7, 0.7, 0.7, 0.02);
-                        break;
-                    case EXPLOSION:
-                        loc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, 10, 1.5, 1.5, 1.5, 0.05);
-                        break;
-                    case METEOR:
-                        loc.getWorld().spawnParticle(Particle.LAVA, loc, 10, 1.5, 1.5, 1.5, 0.02);
-                        loc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, 5, 1.5, 1.5, 1.5, 0.05);
-                        break;
-                }
-            }
-        }.runTaskTimer(plugin, 2L, 2L);
+            }.runTaskTimer(plugin, 2L, 2L);
+        }
     }
 }

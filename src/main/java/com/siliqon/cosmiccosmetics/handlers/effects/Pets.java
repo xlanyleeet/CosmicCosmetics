@@ -170,94 +170,30 @@ public class Pets {
         Mob pet;
 
         switch (effectType) {
-            case PET_CAT -> pet = player.getWorld().spawn(spawnLocation, Cat.class, cat -> {
-                cat.setInvulnerable(true);
-                cat.setSilent(true);
-                cat.setCollidable(false);
-                cat.setCanPickupItems(false);
-                cat.setPersistent(false);
-            });
+            case PET_CAT -> pet = player.getWorld().spawn(spawnLocation, Cat.class);
             case PET_WOLF -> pet = player.getWorld().spawn(spawnLocation, Wolf.class, wolf -> {
-                wolf.setInvulnerable(true);
-                wolf.setSilent(true);
-                wolf.setCollidable(false);
-                wolf.setCanPickupItems(false);
-                wolf.setPersistent(false);
                 wolf.setTamed(true);
                 wolf.setOwner(player);
             });
-            case PET_RABBIT -> pet = player.getWorld().spawn(spawnLocation, Rabbit.class, rabbit -> {
-                rabbit.setInvulnerable(true);
-                rabbit.setSilent(true);
-                rabbit.setCollidable(false);
-                rabbit.setCanPickupItems(false);
-                rabbit.setPersistent(false);
-            });
-            case PET_FOX -> pet = player.getWorld().spawn(spawnLocation, Fox.class, fox -> {
-                fox.setInvulnerable(true);
-                fox.setSilent(true);
-                fox.setCollidable(false);
-                fox.setCanPickupItems(false);
-                fox.setPersistent(false);
-            });
-            case PET_PIG -> pet = player.getWorld().spawn(spawnLocation, Pig.class, pig -> {
-                pig.setInvulnerable(true);
-                pig.setSilent(true);
-                pig.setCollidable(false);
-                pig.setCanPickupItems(false);
-                pig.setPersistent(false);
-            });
-            case PET_CHICKEN -> pet = player.getWorld().spawn(spawnLocation, Chicken.class, entity -> {
-                entity.setInvulnerable(true);
-                entity.setSilent(true);
-                entity.setCollidable(false);
-                entity.setCanPickupItems(false);
-                entity.setPersistent(false);
-
-            });
-            case PET_SLIME -> pet = player.getWorld().spawn(spawnLocation, Slime.class, entity -> {
-                entity.setInvulnerable(true);
-                entity.setSilent(true);
-                entity.setCollidable(false);
-                entity.setCanPickupItems(false);
-                entity.setPersistent(false);
-                ((Slime) entity).setSize(1);
-            });
-            case PET_TURTLE -> pet = player.getWorld().spawn(spawnLocation, Turtle.class, entity -> {
-                entity.setInvulnerable(true);
-                entity.setSilent(true);
-                entity.setCollidable(false);
-                entity.setCanPickupItems(false);
-                entity.setPersistent(false);
-
-            });
-            case PET_BEE -> pet = player.getWorld().spawn(spawnLocation, Bee.class, entity -> {
-                entity.setInvulnerable(true);
-                entity.setSilent(true);
-                entity.setCollidable(false);
-                entity.setCanPickupItems(false);
-                entity.setPersistent(false);
-
-            });
-            case PET_FROG -> pet = player.getWorld().spawn(spawnLocation, Frog.class, entity -> {
-                entity.setInvulnerable(true);
-                entity.setSilent(true);
-                entity.setCollidable(false);
-                entity.setCanPickupItems(false);
-                entity.setPersistent(false);
-
-            });
-            case PET_SHEEP -> pet = player.getWorld().spawn(spawnLocation, Sheep.class, sheep -> {
-                sheep.setInvulnerable(true);
-                sheep.setSilent(true);
-                sheep.setCollidable(false);
-                sheep.setCanPickupItems(false);
-                sheep.setPersistent(false);
-            });
+            case PET_RABBIT -> pet = player.getWorld().spawn(spawnLocation, Rabbit.class);
+            case PET_FOX -> pet = player.getWorld().spawn(spawnLocation, Fox.class);
+            case PET_PIG -> pet = player.getWorld().spawn(spawnLocation, Pig.class);
+            case PET_CHICKEN -> pet = player.getWorld().spawn(spawnLocation, Chicken.class);
+            case PET_SLIME -> pet = player.getWorld().spawn(spawnLocation, Slime.class, slime -> slime.setSize(1));
+            case PET_TURTLE -> pet = player.getWorld().spawn(spawnLocation, Turtle.class);
+            case PET_BEE -> pet = player.getWorld().spawn(spawnLocation, Bee.class);
+            case PET_FROG -> pet = player.getWorld().spawn(spawnLocation, Frog.class);
+            case PET_SHEEP -> pet = player.getWorld().spawn(spawnLocation, Sheep.class);
             default -> {
                 return null;
             }
         }
+
+        pet.setInvulnerable(true);
+        pet.setSilent(true);
+        pet.setCollidable(false);
+        pet.setCanPickupItems(false);
+        pet.setPersistent(false);
 
         if (pet instanceof Ageable ageable) {
             ageable.setBaby();
@@ -273,12 +209,11 @@ public class Pets {
     }
 
     private static class PetFollowGoal implements Goal<Mob> {
-        private final GoalKey<Mob> key;
+        private static final GoalKey<Mob> KEY = GoalKey.of(Mob.class, new NamespacedKey(plugin, "pet_follow"));
         private final Mob pet;
         private final Player owner;
 
         public PetFollowGoal(Mob pet, Player owner) {
-            this.key = GoalKey.of(Mob.class, new NamespacedKey(plugin, "pet_follow_" + UUID.randomUUID()));
             this.pet = pet;
             this.owner = owner;
         }
@@ -329,7 +264,7 @@ public class Pets {
 
         @Override
         public GoalKey<Mob> getKey() {
-            return key;
+            return KEY;
         }
 
         @Override

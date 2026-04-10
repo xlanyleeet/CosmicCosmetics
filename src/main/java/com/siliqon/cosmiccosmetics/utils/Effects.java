@@ -18,96 +18,24 @@ import static com.siliqon.cosmiccosmetics.utils.Utils.toDisplayCase;
 public class Effects {
     private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
-    private static final List<Enum<?>> trailEffectTypes = List.of(
-            Trail.BLOSSOM,
-            Trail.RAINBOW,
-            Trail.CHARM,
-            Trail.LOVE,
-            Trail.MUSICAL,
-            Trail.CLOUDY,
-            Trail.ENDER);
-    private static final List<Enum<?>> haloEffectTypes = List.of(
-            Halo.SPLASH,
-            Halo.ENDER,
-            Halo.FLAME,
-            Halo.CHARM,
-            Halo.LOVE,
-            Halo.BLOSSOM,
-            Halo.ENCHANTED,
-            Halo.TEARS,
-            Halo.RAINBOW);
-    private static final List<Enum<?>> capesEffectTypes = List.of(
-            Cape.CAPE_CRIMSON,
-            Cape.CAPE_AZURE,
-            Cape.CAPE_EMERALD,
-            Cape.CAPE_VIOLET,
-            Cape.CAPE_RAINBOW,
-            Cape.CAPE_GOLD,
-            Cape.CAPE_ICE,
-            Cape.CAPE_VOID,
-            Cape.CAPE_SUNSET);
+    private static final List<Enum<?>> trailEffectTypes = List.of(Trail.values());
+    private static final List<Enum<?>> haloEffectTypes = List.of(Halo.values());
+    private static final List<Enum<?>> capesEffectTypes = List.of(Cape.values());
+    private static final List<Enum<?>> petsEffectTypes = List.of(Pet.values());
+    private static final List<Enum<?>> glowEffectTypes = List.of(Glow.values());
+    private static final List<Enum<?>> gunEffectTypes = List.of(Gun.values());
 
-    private static final List<Enum<?>> petsEffectTypes = List.of(
-            Pet.PET_CAT,
-            Pet.PET_WOLF,
-            Pet.PET_RABBIT,
-            Pet.PET_FOX,
-            Pet.PET_PIG,
-            Pet.PET_SHEEP,
-            Pet.PET_CHICKEN,
-            Pet.PET_SLIME,
-            Pet.PET_TURTLE,
-            Pet.PET_BEE,
-            Pet.PET_FROG);
+    private static final Map<String, Enum<?>> stringToEnumMap = new HashMap<>();
 
-    private static final List<Enum<?>> glowEffectTypes = List.of(
-            com.siliqon.cosmiccosmetics.enums.Glow.BLACK,
-            com.siliqon.cosmiccosmetics.enums.Glow.DARK_BLUE,
-            com.siliqon.cosmiccosmetics.enums.Glow.DARK_GREEN,
-            com.siliqon.cosmiccosmetics.enums.Glow.DARK_AQUA,
-            com.siliqon.cosmiccosmetics.enums.Glow.DARK_RED,
-            com.siliqon.cosmiccosmetics.enums.Glow.DARK_PURPLE,
-            com.siliqon.cosmiccosmetics.enums.Glow.GOLD,
-            com.siliqon.cosmiccosmetics.enums.Glow.GRAY,
-            com.siliqon.cosmiccosmetics.enums.Glow.DARK_GRAY,
-            com.siliqon.cosmiccosmetics.enums.Glow.BLUE,
-            com.siliqon.cosmiccosmetics.enums.Glow.GREEN,
-            com.siliqon.cosmiccosmetics.enums.Glow.AQUA,
-            com.siliqon.cosmiccosmetics.enums.Glow.RED,
-            com.siliqon.cosmiccosmetics.enums.Glow.LIGHT_PURPLE,
-            com.siliqon.cosmiccosmetics.enums.Glow.YELLOW,
-            com.siliqon.cosmiccosmetics.enums.Glow.WHITE);
-
-    private static final List<Enum<?>> gunEffectTypes = List.of(
-            Gun.SNOWBALL,
-            Gun.FIREBALL,
-            Gun.EXPLOSION,
-            Gun.METEOR);
+    static {
+        List.of(trailEffectTypes, haloEffectTypes, capesEffectTypes, petsEffectTypes, glowEffectTypes, gunEffectTypes)
+                .forEach(list -> list.forEach(e -> stringToEnumMap.put(e.name(), e)));
+    }
 
     public static Enum<?> getEnumFromString(String name) {
         if (name == null || name.isEmpty() || name.equals("NONE"))
             return null;
-        try {
-            return Cape.valueOf(name);
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            return Halo.valueOf(name);
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            return Pet.valueOf(name);
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            return Trail.valueOf(name);
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            return Gun.valueOf(name);
-        } catch (IllegalArgumentException ignored) {
-        }
-        return null;
+        return stringToEnumMap.get(name);
     }
 
     public static String getEffectDisplayName(Enum<?> type) {
@@ -125,19 +53,19 @@ public class Effects {
     public static Material getEffectMaterial(Enum<?> type) {
         if (type == null || plugin.effectMaterialRegistry.get(type) == null)
             return Material.AIR;
-        return Material.valueOf(plugin.effectMaterialRegistry.get(type).toString());
+        return plugin.effectMaterialRegistry.get(type);
     }
 
     public static Particle getEffectParticle(Enum<?> type) {
         if (type == null || plugin.effectParticleRegistry.get(type) == null)
             return null;
-        return Particle.valueOf(plugin.effectParticleRegistry.get(type).toString());
+        return plugin.effectParticleRegistry.get(type);
     }
 
     public static Integer getEffectDensity(Enum<?> type) {
         if (type == null || plugin.effectDensityRegistry.get(type) == null)
             return 0;
-        return Integer.parseInt(plugin.effectDensityRegistry.get(type).toString());
+        return plugin.effectDensityRegistry.get(type);
     }
 
     public static Enum<?> getActiveEffect(Player player, EffectForm form) {

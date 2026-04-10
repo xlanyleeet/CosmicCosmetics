@@ -38,6 +38,37 @@ public class Glows {
 
     private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
+    public static void resyncForJoinedPlayer(Player newPlayer) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (p.equals(newPlayer)) continue;
+            Enum<?> activeEffectEnum = getActiveEffect(p, EffectForm.GLOW);
+            if (activeEffectEnum instanceof Glow) {
+                Glow glowType = (Glow) activeEffectEnum;
+                String teamName = "CC_GLOW_" + glowType.name();
+                if (teamName.length() > 64) {
+                    teamName = teamName.substring(0, 64);
+                }
+
+                WrapperPlayServerTeams.ScoreBoardTeamInfo teamInfo = new WrapperPlayServerTeams.ScoreBoardTeamInfo(
+                        Component.text(teamName),
+                        Component.empty(),
+                        Component.empty(),
+                        WrapperPlayServerTeams.NameTagVisibility.ALWAYS,
+                        WrapperPlayServerTeams.CollisionRule.ALWAYS,
+                        glowType.getChatColor(),
+                        WrapperPlayServerTeams.OptionData.ALL);
+
+                WrapperPlayServerTeams teamPacket = new WrapperPlayServerTeams(
+                        teamName,
+                        WrapperPlayServerTeams.TeamMode.CREATE,
+                        teamInfo,
+                        java.util.Collections.singletonList(p.getName()));
+
+                PacketEvents.getAPI().getPlayerManager().sendPacket(newPlayer, teamPacket);
+            }
+        }
+    }
+
     public static void startForPlayer(Player player) {
         Enum<?> activeEffectEnum = getActiveEffect(player, EffectForm.GLOW);
         if (!(activeEffectEnum instanceof Glow)) {
@@ -58,7 +89,6 @@ public class Glows {
         player.setGlowing(true);
 
         ActiveEffectData pdata = getPlayerActiveEffectData(player);
-        final String finalTeamName = teamName;
         int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             if (player.isDead() || !player.isValid() || !player.isOnline()) {
                 return;
@@ -68,9 +98,6 @@ public class Glows {
                 return;
             }
             player.setGlowing(true);
-
-            applyTeamToPacket(finalTeamName, glowType, player);
-
         }, 0L, 20L * 3);
 
         pdata.addTaskId(EffectForm.GLOW, taskId);
