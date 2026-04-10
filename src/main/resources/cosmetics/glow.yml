@@ -1,0 +1,65 @@
+effects:
+  black:
+    price: 100.0
+    permission: cosmetics.glow.black
+    permission-only: false
+  dark_blue:
+    price: 100.0
+    permission: cosmetics.glow.dark_blue
+    permission-only: false
+  dark_green:
+    price: 100.0
+    permission: cosmetics.glow.dark_green
+    permission-only: false
+  dark_aqua:
+    price: 100.0
+    permission: cosmetics.glow.dark_aqua
+    permission-only: false
+  dark_red:
+    price: 100.0
+    permission: cosmetics.glow.dark_red
+    permission-only: false
+  dark_purple:
+    price: 100.0
+    permission: cosmetics.glow.dark_purple
+    permission-only: false
+  gold:
+    price: 100.0
+    permission: cosmetics.glow.gold
+    permission-only: false
+  gray:
+    price: 100.0
+    permission: cosmetics.glow.gray
+    permission-only: false
+  dark_gray:
+    price: 100.0
+    permission: cosmetics.glow.dark_gray
+    permission-only: false
+  blue:
+    price: 100.0
+    permission: cosmetics.glow.blue
+    permission-only: false
+  green:
+    price: 100.0
+    permission: cosmetics.glow.green
+    permission-only: false
+  aqua:
+    price: 100.0
+    permission: cosmetics.glow.aqua
+    permission-only: false
+  red:
+    price: 100.0
+    permission: cosmetics.glow.red
+    permission-only: false
+  light_purple:
+    price: 100.0
+    permission: cosmetics.glow.light_purple
+    permission-only: false
+  yellow:
+    price: 100.0
+    permission: cosmetics.glow.yellow
+    permission-only: false
+  white:
+    price: 100.0
+    permission: cosmetics.glow.white
+    permission-only: false

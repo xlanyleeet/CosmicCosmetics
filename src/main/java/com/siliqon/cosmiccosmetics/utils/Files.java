@@ -198,21 +198,19 @@ public class Files {
                         cosmeticsDir.mkdirs();
                 }
 
-                ensureCosmeticRuleFile("projectile.yml");
+                ensureCosmeticRuleFile("glow.yml");
                 ensureCosmeticRuleFile("trail.yml");
-                ensureCosmeticRuleFile("kill.yml");
                 ensureCosmeticRuleFile("halo.yml");
                 ensureCosmeticRuleFile("capes.yml");
-                ensureCosmeticRuleFile("balloons.yml");
                 ensureCosmeticRuleFile("pets.yml");
+                ensureCosmeticRuleFile("guns.yml");
 
-                syncMissingResourceKeys(new File(cosmeticsDir, "projectile.yml"), "cosmetics/projectile.yml");
+                syncMissingResourceKeys(new File(cosmeticsDir, "glow.yml"), "cosmetics/glow.yml");
                 syncMissingResourceKeys(new File(cosmeticsDir, "trail.yml"), "cosmetics/trail.yml");
-                syncMissingResourceKeys(new File(cosmeticsDir, "kill.yml"), "cosmetics/kill.yml");
                 syncMissingResourceKeys(new File(cosmeticsDir, "halo.yml"), "cosmetics/halo.yml");
                 syncMissingResourceKeys(new File(cosmeticsDir, "capes.yml"), "cosmetics/capes.yml");
-                syncMissingResourceKeys(new File(cosmeticsDir, "balloons.yml"), "cosmetics/balloons.yml");
                 syncMissingResourceKeys(new File(cosmeticsDir, "pets.yml"), "cosmetics/pets.yml");
+                syncMissingResourceKeys(new File(cosmeticsDir, "guns.yml"), "cosmetics/guns.yml");
 
                 plugin.setCosmeticRules(CosmeticRulesCache.load(cosmeticsDir,
                                 plugin.getConfigFile().getDefaultCosmeticPrice()));

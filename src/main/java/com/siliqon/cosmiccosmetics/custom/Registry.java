@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Registry<T, U> {
-    protected static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
+    protected CosmeticsPlugin getPlugin() {
+        return CosmeticsPlugin.getInstance();
+    }
 
     protected Map<T, U> registryMap = new HashMap<>();
 

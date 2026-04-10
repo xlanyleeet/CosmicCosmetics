@@ -1,6 +1,5 @@
 package com.siliqon.cosmiccosmetics.files;
 
-import com.siliqon.cosmiccosmetics.enums.EffectType;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -67,10 +66,6 @@ public final class LanguageCache {
 
     public String getPetsEffectsMenuName() {
         return text("pets-effects-menu-name");
-    }
-
-    public String getBalloonsEffectsMenuName() {
-        return text("balloons-effects-menu-name");
     }
 
     public String getCapesEffectsMenuName() {
@@ -285,6 +280,46 @@ public final class LanguageCache {
         return lines("pet-sheep-effect-description");
     }
 
+    public String getPetChickenEffectName() {
+        return text("pet-chicken-effect-name");
+    }
+
+    public List<String> getPetChickenEffectDescription() {
+        return lines("pet-chicken-effect-description");
+    }
+
+    public String getPetSlimeEffectName() {
+        return text("pet-slime-effect-name");
+    }
+
+    public List<String> getPetSlimeEffectDescription() {
+        return lines("pet-slime-effect-description");
+    }
+
+    public String getPetBeeEffectName() {
+        return text("pet-bee-effect-name");
+    }
+
+    public List<String> getPetBeeEffectDescription() {
+        return lines("pet-bee-effect-description");
+    }
+
+    public String getPetTurtleEffectName() {
+        return text("pet-turtle-effect-name");
+    }
+
+    public List<String> getPetTurtleEffectDescription() {
+        return lines("pet-turtle-effect-description");
+    }
+
+    public String getPetFrogEffectName() {
+        return text("pet-frog-effect-name");
+    }
+
+    public List<String> getPetFrogEffectDescription() {
+        return lines("pet-frog-effect-description");
+    }
+
     public List<String> getCloudEffectDescription() {
         return lines("cloud-effect-description");
     }
@@ -295,6 +330,58 @@ public final class LanguageCache {
 
     public List<String> getRainbowEffectDescription() {
         return lines("rainbow-effect-description");
+    }
+
+    public String getCrownEffectName() {
+        return textOrDefault("crown-effect-name", "<gold>Crown Halo");
+    }
+
+    public List<String> getCrownEffectDescription() {
+        return linesOrDefault("crown-effect-description", List.of("<gray>A golden crown above your head."));
+    }
+
+    public String getShadowFootprintsEffectName() {
+        return textOrDefault("shadow-footprints-effect-name", "<dark_gray>Shadow Footprints");
+    }
+
+    public List<String> getShadowFootprintsEffectDescription() {
+        return linesOrDefault("shadow-footprints-effect-description",
+                List.of("<gray>Leave a trail of shadow footprints behind you."));
+    }
+
+    public String getSnowFootprintsEffectName() {
+        return textOrDefault("snow-footprints-effect-name", "<white>Snow Footprints");
+    }
+
+    public List<String> getSnowFootprintsEffectDescription() {
+        return linesOrDefault("snow-footprints-effect-description",
+                List.of("<gray>Leave a trail of snowy footprints."));
+    }
+
+    public String getFlameHelixEffectName() {
+        return textOrDefault("flame-helix-effect-name", "<gold>Flame Helix");
+    }
+
+    public List<String> getFlameHelixEffectDescription() {
+        return linesOrDefault("flame-helix-effect-description", List.of("<gray>A swirling flame helix around you."));
+    }
+
+    public String getRedstoneHelixEffectName() {
+        return textOrDefault("redstone-helix-effect-name", "<red>Redstone Helix");
+    }
+
+    public List<String> getRedstoneHelixEffectDescription() {
+        return linesOrDefault("redstone-helix-effect-description",
+                List.of("<gray>A swirling redstone helix around you."));
+    }
+
+    public String getSoulFireHelixEffectName() {
+        return textOrDefault("soul-fire-helix-effect-name", "<blue>Soul Fire Helix");
+    }
+
+    public List<String> getSoulFireHelixEffectDescription() {
+        return linesOrDefault("soul-fire-helix-effect-description",
+                List.of("<gray>A swirling soul fire helix around you."));
     }
 
     public String getTrailEffectsMenuName() {
@@ -497,6 +584,18 @@ public final class LanguageCache {
         return text("halo-effects-menu-name");
     }
 
+    public String getGlowEffectsItemName() {
+        return text("glow-effects-item-name");
+    }
+
+    public List<String> getGlowEffectsItemLore() {
+        return lines("glow-effects-item-lore");
+    }
+
+    public String getGlowEffectsMenuName() {
+        return text("glow-effects-menu-name");
+    }
+
     public List<String> getTrailEffectsItemLore() {
         return lines("trail-effects-item-lore");
     }
@@ -526,91 +625,167 @@ public final class LanguageCache {
         return text("prefix");
     }
 
-    public String getEffectName(EffectType effectType) {
+    public String getEffectName(Enum<?> effectType) {
         if (effectType == null) {
             return "NONE";
         }
+        if (effectType instanceof com.siliqon.cosmiccosmetics.enums.Glow glow) {
+            String nameLower = glow.name().toLowerCase(java.util.Locale.ROOT).replace('_', '-');
+            return textOrDefault("glow-" + nameLower + "-effect-name", "<" + nameLower + ">" + glow.name() + " Glow");
+        }
 
-        return switch (effectType) {
-            case SPLASH -> getSplashEffectName();
-            case ENDER -> getEnderEffectName();
-            case FLAME -> getFlameEffectName();
-            case CHARM -> getCharmEffectName();
-            case LOVE -> getLoveEffectName();
-            case BLOSSOM -> getBlossomEffectName();
-            case ENCHANTED -> getEnchantedEffectName();
-            case TEARS -> getTearsEffectName();
-            case MUSICAL -> getMusicalEffectName();
-            case RAINBOW -> getRainbowEffectName();
-            case CLOUDY -> getCloudEffectName();
-            case CAPE_CRIMSON -> getCapeCrimsonEffectName();
-            case CAPE_AZURE -> getCapeAzureEffectName();
-            case CAPE_EMERALD -> getCapeEmeraldEffectName();
-            case CAPE_VIOLET -> getCapeVioletEffectName();
-            case CAPE_RAINBOW -> getCapeRainbowEffectName();
-            case CAPE_GOLD -> getCapeGoldEffectName();
-            case CAPE_ICE -> getCapeIceEffectName();
-            case CAPE_VOID -> getCapeVoidEffectName();
-            case CAPE_SUNSET -> getCapeSunsetEffectName();
-            case PET_CAT -> getPetCatEffectName();
-            case PET_WOLF -> getPetWolfEffectName();
-            case PET_RABBIT -> getPetRabbitEffectName();
-            case PET_FOX -> getPetFoxEffectName();
-            case PET_PIG -> getPetPigEffectName();
-            case PET_SHEEP -> getPetSheepEffectName();
-            case BALLOONS -> getBalloonsEffectName();
-            case BALLOON_RED -> getRedBalloonEffectName();
-            case BALLOON_BLUE -> getBlueBalloonEffectName();
-            case BALLOON_GREEN -> getGreenBalloonEffectName();
-            case BALLOON_YELLOW -> getYellowBalloonEffectName();
-            case BALLOON_PURPLE -> getPurpleBalloonEffectName();
-            case BALLOON_ORANGE -> getOrangeBalloonEffectName();
-            case BALLOON_CYAN -> getCyanBalloonEffectName();
-            case BALLOON_PINK -> getPinkBalloonEffectName();
+        return switch (effectType.name()) {
+            case "SPLASH" -> getSplashEffectName();
+            case "ENDER" -> getEnderEffectName();
+            case "FLAME" -> getFlameEffectName();
+            case "CHARM" -> getCharmEffectName();
+            case "LOVE" -> getLoveEffectName();
+            case "BLOSSOM" -> getBlossomEffectName();
+            case "ENCHANTED" -> getEnchantedEffectName();
+            case "TEARS" -> getTearsEffectName();
+            case "MUSICAL" -> getMusicalEffectName();
+            case "RAINBOW" -> getRainbowEffectName();
+            case "CROWN" -> getCrownEffectName();
+            case "CLOUDY" -> getCloudEffectName();
+            case "SHADOW_FOOTPRINTS" -> getShadowFootprintsEffectName();
+            case "SNOW_FOOTPRINTS" -> getSnowFootprintsEffectName();
+            case "FLAME_HELIX" -> getFlameHelixEffectName();
+            case "REDSTONE_HELIX" -> getRedstoneHelixEffectName();
+            case "SOUL_FIRE_HELIX" -> getSoulFireHelixEffectName();
+            case "CAPE_CRIMSON" -> getCapeCrimsonEffectName();
+            case "CAPE_AZURE" -> getCapeAzureEffectName();
+            case "CAPE_EMERALD" -> getCapeEmeraldEffectName();
+            case "CAPE_VIOLET" -> getCapeVioletEffectName();
+            case "CAPE_RAINBOW" -> getCapeRainbowEffectName();
+            case "CAPE_GOLD" -> getCapeGoldEffectName();
+            case "CAPE_ICE" -> getCapeIceEffectName();
+            case "CAPE_VOID" -> getCapeVoidEffectName();
+            case "CAPE_SUNSET" -> getCapeSunsetEffectName();
+            case "PET_CAT" -> getPetCatEffectName();
+            case "PET_WOLF" -> getPetWolfEffectName();
+            case "PET_RABBIT" -> getPetRabbitEffectName();
+            case "PET_FOX" -> getPetFoxEffectName();
+            case "PET_PIG" -> getPetPigEffectName();
+            case "PET_SHEEP" -> getPetSheepEffectName();
+            case "PET_CHICKEN" -> getPetChickenEffectName();
+            case "PET_SLIME" -> getPetSlimeEffectName();
+            case "PET_BEE" -> getPetBeeEffectName();
+            case "PET_TURTLE" -> getPetTurtleEffectName();
+            case "PET_FROG" -> getPetFrogEffectName();
+            case "BALLOONS" -> getBalloonsEffectName();
+            case "BALLOON_RED" -> getRedBalloonEffectName();
+            case "BALLOON_BLUE" -> getBlueBalloonEffectName();
+            case "BALLOON_GREEN" -> getGreenBalloonEffectName();
+            case "BALLOON_YELLOW" -> getYellowBalloonEffectName();
+            case "BALLOON_PURPLE" -> getPurpleBalloonEffectName();
+            case "BALLOON_ORANGE" -> getOrangeBalloonEffectName();
+            case "BALLOON_CYAN" -> getCyanBalloonEffectName();
+            case "BALLOON_PINK" -> getPinkBalloonEffectName();
+            case "SNOWBALL" -> getGunSnowballName();
+            case "FIREBALL" -> getGunFireballName();
+            case "EXPLOSION" -> getGunExplosionName();
+            case "METEOR" -> getGunMeteorName();
+            default -> "Unknown";
         };
     }
 
-    public List<String> getEffectDescription(EffectType effectType) {
+    public List<String> getEffectDescription(Enum<?> effectType) {
         if (effectType == null) {
             return List.of();
         }
+        if (effectType instanceof com.siliqon.cosmiccosmetics.enums.Glow glow) {
+            String nameLower = glow.name().toLowerCase(java.util.Locale.ROOT).replace('_', '-');
+            return linesOrDefault("glow-" + nameLower + "-effect-description", java.util.List.of(" ", "<gray>A glowing " + nameLower + " aura."));
+        }
 
-        return switch (effectType) {
-            case SPLASH -> getSplashEffectDescription();
-            case ENDER -> getEnderEffectDescription();
-            case FLAME -> getFlameEffectDescription();
-            case CHARM -> getCharmEffectDescription();
-            case LOVE -> getLoveEffectDescription();
-            case BLOSSOM -> getBlossomEffectDescription();
-            case ENCHANTED -> getEnchantedEffectDescription();
-            case TEARS -> getTearsEffectDescription();
-            case MUSICAL -> getMusicalEffectDescription();
-            case RAINBOW -> getRainbowEffectDescription();
-            case CLOUDY -> getCloudEffectDescription();
-            case CAPE_CRIMSON -> getCapeCrimsonEffectDescription();
-            case CAPE_AZURE -> getCapeAzureEffectDescription();
-            case CAPE_EMERALD -> getCapeEmeraldEffectDescription();
-            case CAPE_VIOLET -> getCapeVioletEffectDescription();
-            case CAPE_RAINBOW -> getCapeRainbowEffectDescription();
-            case CAPE_GOLD -> getCapeGoldEffectDescription();
-            case CAPE_ICE -> getCapeIceEffectDescription();
-            case CAPE_VOID -> getCapeVoidEffectDescription();
-            case CAPE_SUNSET -> getCapeSunsetEffectDescription();
-            case PET_CAT -> getPetCatEffectDescription();
-            case PET_WOLF -> getPetWolfEffectDescription();
-            case PET_RABBIT -> getPetRabbitEffectDescription();
-            case PET_FOX -> getPetFoxEffectDescription();
-            case PET_PIG -> getPetPigEffectDescription();
-            case PET_SHEEP -> getPetSheepEffectDescription();
-            case BALLOONS -> getBalloonsEffectDescription();
-            case BALLOON_RED -> getRedBalloonEffectDescription();
-            case BALLOON_BLUE -> getBlueBalloonEffectDescription();
-            case BALLOON_GREEN -> getGreenBalloonEffectDescription();
-            case BALLOON_YELLOW -> getYellowBalloonEffectDescription();
-            case BALLOON_PURPLE -> getPurpleBalloonEffectDescription();
-            case BALLOON_ORANGE -> getOrangeBalloonEffectDescription();
-            case BALLOON_CYAN -> getCyanBalloonEffectDescription();
-            case BALLOON_PINK -> getPinkBalloonEffectDescription();
+        return switch (effectType.name()) {
+            case "SPLASH" -> getSplashEffectDescription();
+            case "ENDER" -> getEnderEffectDescription();
+            case "FLAME" -> getFlameEffectDescription();
+            case "CHARM" -> getCharmEffectDescription();
+            case "LOVE" -> getLoveEffectDescription();
+            case "BLOSSOM" -> getBlossomEffectDescription();
+            case "ENCHANTED" -> getEnchantedEffectDescription();
+            case "TEARS" -> getTearsEffectDescription();
+            case "MUSICAL" -> getMusicalEffectDescription();
+            case "RAINBOW" -> getRainbowEffectDescription();
+            case "CROWN" -> getCrownEffectDescription();
+            case "CLOUDY" -> getCloudEffectDescription();
+            case "SHADOW_FOOTPRINTS" -> getShadowFootprintsEffectDescription();
+            case "SNOW_FOOTPRINTS" -> getSnowFootprintsEffectDescription();
+            case "FLAME_HELIX" -> getFlameHelixEffectDescription();
+            case "REDSTONE_HELIX" -> getRedstoneHelixEffectDescription();
+            case "SOUL_FIRE_HELIX" -> getSoulFireHelixEffectDescription();
+            case "CAPE_CRIMSON" -> getCapeCrimsonEffectDescription();
+            case "CAPE_AZURE" -> getCapeAzureEffectDescription();
+            case "CAPE_EMERALD" -> getCapeEmeraldEffectDescription();
+            case "CAPE_VIOLET" -> getCapeVioletEffectDescription();
+            case "CAPE_RAINBOW" -> getCapeRainbowEffectDescription();
+            case "CAPE_GOLD" -> getCapeGoldEffectDescription();
+            case "CAPE_ICE" -> getCapeIceEffectDescription();
+            case "CAPE_VOID" -> getCapeVoidEffectDescription();
+            case "CAPE_SUNSET" -> getCapeSunsetEffectDescription();
+            case "PET_CAT" -> getPetCatEffectDescription();
+            case "PET_WOLF" -> getPetWolfEffectDescription();
+            case "PET_RABBIT" -> getPetRabbitEffectDescription();
+            case "PET_FOX" -> getPetFoxEffectDescription();
+            case "PET_PIG" -> getPetPigEffectDescription();
+            case "PET_SHEEP" -> getPetSheepEffectDescription();
+            case "PET_CHICKEN" -> getPetChickenEffectDescription();
+            case "PET_SLIME" -> getPetSlimeEffectDescription();
+            case "PET_BEE" -> getPetBeeEffectDescription();
+            case "PET_TURTLE" -> getPetTurtleEffectDescription();
+            case "PET_FROG" -> getPetFrogEffectDescription();
+            case "SNOWBALL" -> getGunSnowballDescription();
+            case "FIREBALL" -> getGunFireballDescription();
+            case "EXPLOSION" -> getGunExplosionDescription();
+            case "METEOR" -> getGunMeteorDescription();
+
+            default -> List.of();
         };
+    }
+
+    public String getGunsEffectsMenuName() {
+        return text("guns-effects-menu-name");
+    }
+
+    public String getGunsEffectsItemName() {
+        return text("guns-effects-item-name");
+    }
+
+    public java.util.List<String> getGunsEffectsItemLore() {
+        return lines("guns-effects-item-lore");
+    }
+
+    public String getGunSnowballName() {
+        return text("gun-snowball-name");
+    }
+
+    public java.util.List<String> getGunSnowballDescription() {
+        return lines("gun-snowball-description");
+    }
+
+    public String getGunFireballName() {
+        return text("gun-fireball-name");
+    }
+
+    public java.util.List<String> getGunFireballDescription() {
+        return lines("gun-fireball-description");
+    }
+
+    public String getGunExplosionName() {
+        return text("gun-explosion-name");
+    }
+
+    public java.util.List<String> getGunExplosionDescription() {
+        return lines("gun-explosion-description");
+    }
+
+    public String getGunMeteorName() {
+        return text("gun-meteor-name");
+    }
+
+    public java.util.List<String> getGunMeteorDescription() {
+        return lines("gun-meteor-description");
     }
 }

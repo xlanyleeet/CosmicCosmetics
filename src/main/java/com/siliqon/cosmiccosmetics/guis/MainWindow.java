@@ -2,7 +2,6 @@ package com.siliqon.cosmiccosmetics.guis;
 
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
 import com.siliqon.cosmiccosmetics.files.LanguageCache;
 import com.siliqon.cosmiccosmetics.guis.lib.GUIManager;
 import com.siliqon.cosmiccosmetics.guis.lib.InventoryGUI;
@@ -35,20 +34,19 @@ public class MainWindow extends InventoryGUI {
 
     @Override
     protected Gui createGui(Player player) {
-        Gui gui = createMenu(3, getTitle(player), makeSimpleItem(Material.GRAY_STAINED_GLASS_PANE, " ", 1));
+        Gui gui = createMenu(6, getTitle(player), makeSimpleItem(Material.GRAY_STAINED_GLASS_PANE, " ", 1));
         renderMainItems(gui, player);
         return gui;
     }
 
     private void renderMainItems(Gui gui, Player player) {
-        setItem(gui, 9, trailEffectsItem(player));
-        setItem(gui, 10, capesEffectsItem(player));
-        setItem(gui, 11, haloEffectsItem(player));
-        setItem(gui, 13, balloonsEffectsItem(player));
-        setItem(gui, 15, projectileEffectsItem(player));
-        setItem(gui, 16, petsEffectsItem(player));
-        setItem(gui, 17, killEffectsItem(player));
-        setItem(gui, 22, resetEffectsItem(gui, player));
+        setItem(gui, 20, trailEffectsItem(player));
+        setItem(gui, 22, capesEffectsItem(player));
+        setItem(gui, 24, haloEffectsItem(player));
+        setItem(gui, 28, petsEffectsItem(player));
+        setItem(gui, 30, gunsEffectsItem(player));
+        setItem(gui, 32, glowEffectsItem(player));
+        setItem(gui, 34, resetEffectsItem(gui, player));
     }
 
     private GuiItem trailEffectsItem(Player viewer) {
@@ -79,19 +77,18 @@ public class MainWindow extends InventoryGUI {
                 player -> guiManager.openGUI(new HaloCosmetics(plugin), player));
     }
 
-    private GuiItem projectileEffectsItem(Player viewer) {
+    private GuiItem glowEffectsItem(Player viewer) {
         return button(
                 viewer,
                 player -> {
                     LanguageCache lang = plugin.getLang(player);
                     return makeItemWithLore(
-                            Material.BOW,
-                            lang.getProjectileEffectsItemName(),
+                            Material.GLOWSTONE,
+                            lang.getGlowEffectsItemName(),
                             1,
-                            resolveCategoryLore(player, EffectForm.PROJECTILE, lang.getProjectileEffectsItemLore(),
-                                    lang));
+                            resolveCategoryLore(player, EffectForm.GLOW, lang.getGlowEffectsItemLore(), lang));
                 },
-                player -> guiManager.openGUI(new ProjectileCosmetics(plugin), player));
+                player -> guiManager.openGUI(new GlowCosmetics(plugin), player));
     }
 
     private GuiItem capesEffectsItem(Player viewer) {
@@ -108,34 +105,6 @@ public class MainWindow extends InventoryGUI {
                 player -> guiManager.openGUI(new CapesCosmetics(plugin), player));
     }
 
-    private GuiItem balloonsEffectsItem(Player viewer) {
-        return button(
-                viewer,
-                player -> {
-                    LanguageCache lang = plugin.getLang(player);
-                    return makeItemWithLore(
-                            Material.FIREWORK_ROCKET,
-                            lang.getBalloonsEffectsItemName(),
-                            1,
-                            resolveCategoryLore(player, EffectForm.BALLOONS, lang.getBalloonsEffectsItemLore(), lang));
-                },
-                player -> guiManager.openGUI(new BalloonsCosmetics(plugin), player));
-    }
-
-    private GuiItem killEffectsItem(Player viewer) {
-        return button(
-                viewer,
-                player -> {
-                    LanguageCache lang = plugin.getLang(player);
-                    return makeItemWithLore(
-                            Material.DIAMOND_SWORD,
-                            lang.getKillEffectsItemName(),
-                            1,
-                            resolveCategoryLore(player, EffectForm.KILL, lang.getKillEffectsItemLore(), lang));
-                },
-                player -> guiManager.openGUI(new KillCosmetics(plugin), player));
-    }
-
     private GuiItem petsEffectsItem(Player viewer) {
         return button(
                 viewer,
@@ -148,6 +117,20 @@ public class MainWindow extends InventoryGUI {
                             resolveCategoryLore(player, EffectForm.PETS, lang.getPetsEffectsItemLore(), lang));
                 },
                 player -> guiManager.openGUI(new PetsCosmetics(plugin), player));
+    }
+
+    private GuiItem gunsEffectsItem(Player viewer) {
+        return button(
+                viewer,
+                player -> {
+                    LanguageCache lang = plugin.getLang(player);
+                    return makeItemWithLore(
+                            Material.DIAMOND_HORSE_ARMOR,
+                            lang.getGunsEffectsItemName(),
+                            1,
+                            resolveCategoryLore(player, EffectForm.FUNGUN, lang.getGunsEffectsItemLore(), lang));
+                },
+                player -> guiManager.openGUI(new GunsCosmetics(plugin), player));
     }
 
     private GuiItem resetEffectsItem(Gui gui, Player viewer) {
@@ -170,7 +153,7 @@ public class MainWindow extends InventoryGUI {
     private ArrayList<String> resolveCategoryLore(Player player, EffectForm form, Iterable<String> lines,
             LanguageCache lang) {
         ArrayList<String> lore = new ArrayList<>();
-        EffectType activeEffect = getActiveEffect(player, form);
+        Enum<?> activeEffect = getActiveEffect(player, form);
         for (String line : lines) {
             lore.add(line.replace("%active_effect_name%", lang.getEffectName(activeEffect)));
         }
@@ -186,7 +169,7 @@ public class MainWindow extends InventoryGUI {
 
     private int countUnlockedEffects(Player player, EffectForm form) {
         int unlocked = 0;
-        for (EffectType effectType : getFormEffects(form)) {
+        for (Enum<?> effectType : getFormEffects(form)) {
             if (!isDisplayableEffect(effectType)) {
                 continue;
             }
@@ -199,7 +182,7 @@ public class MainWindow extends InventoryGUI {
 
     private int countDisplayableEffects(EffectForm form) {
         int total = 0;
-        for (EffectType effectType : getFormEffects(form)) {
+        for (Enum<?> effectType : getFormEffects(form)) {
             if (isDisplayableEffect(effectType)) {
                 total++;
             }
@@ -207,7 +190,7 @@ public class MainWindow extends InventoryGUI {
         return total;
     }
 
-    private boolean isDisplayableEffect(EffectType effectType) {
+    private boolean isDisplayableEffect(Enum<?> effectType) {
         if (effectType == null) {
             return false;
         }

@@ -3,12 +3,10 @@ package com.siliqon.cosmiccosmetics.listeners;
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.custom.ActiveEffectData;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.handlers.effects.Balloons;
 import com.siliqon.cosmiccosmetics.handlers.effects.Capes;
-import com.siliqon.cosmiccosmetics.handlers.effects.Halo;
+import com.siliqon.cosmiccosmetics.handlers.effects.Halos;
 import com.siliqon.cosmiccosmetics.handlers.effects.Pets;
-import com.siliqon.cosmiccosmetics.handlers.effects.Projectile;
-import com.siliqon.cosmiccosmetics.handlers.effects.Trail;
+import com.siliqon.cosmiccosmetics.handlers.effects.Trails;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,8 +59,6 @@ public class PlayerListener implements Listener {
         if (plugin.debugLevel >= 2) {
             log("Stopped ongoing tasks for " + player.getName());
         }
-
-        Balloons.removeForPlayer(player);
         Pets.removeForPlayer(player);
 
         // save data and let go of cache
@@ -71,9 +67,9 @@ public class PlayerListener implements Listener {
                 enabled,
                 pdata,
                 plugin.getPurchasedEffects(player.getUniqueId()));
-        plugin.playerActiveEffects.remove(player.getUniqueId());
-        plugin.cosmeticsEnabled.remove(player.getUniqueId());
-        plugin.purchasedEffects.remove(player.getUniqueId());
+        plugin.getPlayerActiveEffects().remove(player.getUniqueId());
+        plugin.getCosmeticsEnabled().remove(player.getUniqueId());
+        plugin.getAllPurchasedEffects().remove(player.getUniqueId());
     }
 
     @EventHandler
@@ -90,8 +86,6 @@ public class PlayerListener implements Listener {
             }
         });
         pdata.getTaskIds().clear();
-
-        Balloons.removeForPlayer(player);
         Pets.removeForPlayer(player);
 
         for (EffectForm form : new ArrayList<>(pdata.getEffects().keySet())) {
@@ -100,13 +94,11 @@ public class PlayerListener implements Listener {
             }
 
             switch (form) {
-                case PROJECTILE -> Projectile.startForPlayer(player);
-                case TRAIL -> Trail.startForPlayer(player);
-                case HALO -> Halo.startForPlayer(player);
+                case TRAIL -> Trails.startForPlayer(player);
+                case HALO -> Halos.startForPlayer(player);
                 case CAPES -> Capes.startForPlayer(player);
-                case BALLOONS -> Balloons.startForPlayer(player);
                 case PETS -> Pets.startForPlayer(player);
-                case KILL, GLOW -> {
+                case GLOW, FUNGUN -> {
                 }
             }
         }

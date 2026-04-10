@@ -3,7 +3,7 @@ package com.siliqon.cosmiccosmetics.handlers.effects;
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.custom.ActiveEffectData;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
+import com.siliqon.cosmiccosmetics.enums.Cape;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -21,10 +21,11 @@ public class Capes {
     private static final CosmeticsPlugin plugin = CosmeticsPlugin.getInstance();
 
     public static void startForPlayer(Player player) {
-        EffectType effectType = getActiveEffect(player, EffectForm.CAPES);
-        if (effectType == null) {
+        Enum<?> activeEffectEnum = getActiveEffect(player, EffectForm.CAPES);
+        if (!(activeEffectEnum instanceof Cape)) {
             return;
         }
+        Cape effectType = (Cape) activeEffectEnum;
         if (!plugin.isEffectFormEnabledInWorld(EffectForm.CAPES, player.getWorld().getName())) {
             return;
         }
@@ -61,7 +62,7 @@ public class Capes {
             Vector back = facing.clone().multiply(-0.30);
             Vector right = new Vector(-facing.getZ(), 0.0, facing.getX()).normalize();
             Particle particle = getEffectParticle(effectType);
-            Particle.DustOptions staticDustOptions = effectType == EffectType.CAPE_RAINBOW
+            Particle.DustOptions staticDustOptions = effectType == Cape.CAPE_RAINBOW
                     ? null
                     : dustFor(effectType);
 
@@ -114,7 +115,7 @@ public class Capes {
         }
     }
 
-    private static Particle.DustOptions dustFor(EffectType effectType) {
+    private static Particle.DustOptions dustFor(Cape effectType) {
         int size = 1;
         return switch (effectType) {
             case CAPE_CRIMSON -> new Particle.DustOptions(Color.fromRGB(214, 48, 49), size);

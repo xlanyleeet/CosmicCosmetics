@@ -3,7 +3,7 @@ package com.siliqon.cosmiccosmetics.handlers.effects;
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.custom.ActiveEffectData;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
+import com.siliqon.cosmiccosmetics.enums.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Ageable;
@@ -14,6 +14,11 @@ import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Rabbit;
 import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Frog;
+import org.bukkit.entity.Bee;
+import org.bukkit.entity.Turtle;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Wolf;
 import org.bukkit.util.Vector;
 
@@ -39,9 +44,9 @@ public class Pets {
     private static final class PetState {
         private Mob pet;
         private int taskId;
-        private EffectType displayedType;
+        private Pet displayedType;
 
-        private PetState(Mob pet, EffectType displayedType) {
+        private PetState(Mob pet, Pet displayedType) {
             this.pet = pet;
             this.displayedType = displayedType;
             this.taskId = -1;
@@ -49,10 +54,11 @@ public class Pets {
     }
 
     public static void startForPlayer(Player player) {
-        EffectType effectType = getActiveEffect(player, EffectForm.PETS);
-        if (effectType == null) {
+        Enum<?> activeEffectEnum = getActiveEffect(player, EffectForm.PETS);
+        if (!(activeEffectEnum instanceof Pet)) {
             return;
         }
+        Pet effectType = (Pet) activeEffectEnum;
 
         if (!plugin.isEffectFormEnabledInWorld(EffectForm.PETS, player.getWorld().getName())) {
             removeForPlayer(player);
@@ -94,11 +100,13 @@ public class Pets {
                 return;
             }
 
-            EffectType currentType = getActiveEffect(player, EffectForm.PETS);
-            if (currentType == null) {
+            Enum<?> currentTypeEnum = getActiveEffect(player, EffectForm.PETS);
+            if (!(currentTypeEnum instanceof Pet)) {
                 removeForPlayer(player);
                 return;
             }
+            Pet currentType = (Pet) currentTypeEnum;
+
             if (currentType != current.displayedType) {
                 startForPlayer(player);
                 return;
@@ -157,7 +165,7 @@ public class Pets {
         }
     }
 
-    private static Mob spawnPet(Player player, EffectType effectType) {
+    private static Mob spawnPet(Player player, Pet effectType) {
         Location spawnLocation = calculatePetTargetLocation(player.getLocation());
         Mob pet;
 
@@ -199,6 +207,46 @@ public class Pets {
                 pig.setCanPickupItems(false);
                 pig.setPersistent(false);
             });
+            case PET_CHICKEN -> pet = player.getWorld().spawn(spawnLocation, Chicken.class, entity -> {
+                entity.setInvulnerable(true);
+                entity.setSilent(true);
+                entity.setCollidable(false);
+                entity.setCanPickupItems(false);
+                entity.setPersistent(false);
+
+            });
+            case PET_SLIME -> pet = player.getWorld().spawn(spawnLocation, Slime.class, entity -> {
+                entity.setInvulnerable(true);
+                entity.setSilent(true);
+                entity.setCollidable(false);
+                entity.setCanPickupItems(false);
+                entity.setPersistent(false);
+                ((Slime) entity).setSize(1);
+            });
+            case PET_TURTLE -> pet = player.getWorld().spawn(spawnLocation, Turtle.class, entity -> {
+                entity.setInvulnerable(true);
+                entity.setSilent(true);
+                entity.setCollidable(false);
+                entity.setCanPickupItems(false);
+                entity.setPersistent(false);
+
+            });
+            case PET_BEE -> pet = player.getWorld().spawn(spawnLocation, Bee.class, entity -> {
+                entity.setInvulnerable(true);
+                entity.setSilent(true);
+                entity.setCollidable(false);
+                entity.setCanPickupItems(false);
+                entity.setPersistent(false);
+
+            });
+            case PET_FROG -> pet = player.getWorld().spawn(spawnLocation, Frog.class, entity -> {
+                entity.setInvulnerable(true);
+                entity.setSilent(true);
+                entity.setCollidable(false);
+                entity.setCanPickupItems(false);
+                entity.setPersistent(false);
+
+            });
             case PET_SHEEP -> pet = player.getWorld().spawn(spawnLocation, Sheep.class, sheep -> {
                 sheep.setInvulnerable(true);
                 sheep.setSilent(true);
@@ -237,8 +285,8 @@ public class Pets {
 
         @Override
         public boolean shouldActivate() {
-            return owner != null && owner.isValid() && pet != null && pet.isValid() 
-                && owner.getWorld().equals(pet.getWorld());
+            return owner != null && owner.isValid() && pet != null && pet.isValid()
+                    && owner.getWorld().equals(pet.getWorld());
         }
 
         @Override
@@ -247,7 +295,8 @@ public class Pets {
         }
 
         @Override
-        public void start() {}
+        public void start() {
+        }
 
         @Override
         public void stop() {
@@ -258,7 +307,7 @@ public class Pets {
         public void tick() {
             Location petLoc = pet.getLocation();
             Location ownerLoc = owner.getLocation();
-            
+
             double distSq = petLoc.distanceSquared(ownerLoc);
 
             if (distSq > 144.0) {
@@ -267,7 +316,7 @@ public class Pets {
                 pet.getPathfinder().moveTo(ownerLoc, 1.5D);
             } else {
                 pet.getPathfinder().stopPathfinding();
-                
+
                 Vector dir = ownerLoc.toVector().subtract(petLoc.toVector());
                 dir.setY(0);
                 if (dir.lengthSquared() > 0) {

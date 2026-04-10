@@ -2,36 +2,45 @@
 trail-effects-item-name: "<gold>Ефекти сліду"
 trail-effects-item-lore:
   - " "
-  - "<gray>Active: %active_effect_name%"
+  - "<gray>Активно: %active_effect_name%"
 projectile-effects-item-name: "<gold>Ефекти снарядів"
 projectile-effects-item-lore:
   - " "
-  - "<gray>Active: %active_effect_name%"
+  - "<gray>Активно: %active_effect_name%"
 kill-effects-item-name: "<gold>Ефекти вбивства"
 kill-effects-item-lore:
   - " "
-  - "<gray>Active: %active_effect_name%"
+  - "<gray>Активно: %active_effect_name%"
 balloons-effects-item-name: "<gold>Повітряні кульки"
 balloons-effects-item-lore:
   - " "
-  - "<gray>Active: %active_effect_name%"
+  - "<gray>Активно: %active_effect_name%"
 pets-effects-item-name: "<gold>Міні-пети"
 pets-effects-item-lore:
   - " "
-  - "<gray>Active: %active_effect_name%"
+  - "<gray>Активно: %active_effect_name%"
 capes-effects-item-name: "<gold>Плащі з частинок"
 capes-effects-item-lore:
   - " "
-  - "<gray>Active: %active_effect_name%"
+  - "<gray>Активно: %active_effect_name%"
 halo-effects-item-name: "<gold>Ефекти німбу"
 halo-effects-item-lore:
   - " "
-  - "<gray>Active: %active_effect_name%"
+  - "<gray>Активно: %active_effect_name%"
+glow-effects-item-name: "<gold>Ефекти світіння"
+glow-effects-item-lore:
+  - " "
+  - "<gray>Активно: %active_effect_name%"
+guns-effects-item-name: "<gold>Весела зброя"
+guns-effects-item-lore:
+  - " "
+  - "<gray>Активно: %active_effect_name%"
+guns-effects-menu-name: "<gold>Весела зброя"
 category-unlocked-lore-line: "<gray>Відкрито: <green>%unlocked_count%<gray>/%total_count%"
 reset-all-effects-item-name: "<red>Скинути всі ефекти"
 reset-all-effects-item-lore:
   - " "
-  - "<gray>Вимкнути всі активні ефекти"
+  - "<gray>Вимкнути всі активні ефекти."
 effect-not-unlocked-name: "<gray>(<red>ЗАКРИТО<gray>) %effect_name%"
 effect-not-unlocked-lore:
   - " "
@@ -92,125 +101,173 @@ rainbow-effect-name: "<dark_purple>R<light_purple>a<dark_blue>i<green>n<yellow>b
 rainbow-effect-description:
   - " "
   - "<gray>Райдужний вайб активовано"
+shadow-footprints-effect-name: "<dark_gray>Тіньові сліди"
+shadow-footprints-effect-description:
+  - " "
+  - "<gray>Залишає темні сліди позаду тебе"
+snow-footprints-effect-name: "<white>Снігові сліди"
+snow-footprints-effect-description:
+  - " "
+  - "<gray>Залишає снігові сліди позаду тебе"
+flame-helix-effect-name: "<gold>Вогняна спіраль"
+flame-helix-effect-description:
+  - " "
+  - "<gray>Вогняна спіраль кружляє навколо тебе"
+redstone-helix-effect-name: "<red>Редстоун спіраль"
+redstone-helix-effect-description:
+  - " "
+  - "<gray>Редстоун спіраль кружляє навколо тебе"
+soul-fire-helix-effect-name: "<aqua>Спіраль вогню душ"
+soul-fire-helix-effect-description:
+  - " "
+  - "<gray>Спіраль полум'я душ навколо тебе"
 cloud-effect-name: "<gray>Хмарний"
 cloud-effect-description:
   - " "
   - "<gray>Хмарно, місцями"
   - "<gray>частинки"
+crown-effect-name: "<yellow>Корона"
+crown-effect-description:
+  - " "
+  - "<gray>Королівська золота корона"
 cape-crimson-effect-name: "<red>Багряний плащ"
 cape-crimson-effect-description:
   - " "
-  - "<gray>A deep red particle cape"
-  - "<gray>flowing behind you"
+  - "<gray>Глибокий червоний плащ з частинок,"
+  - "<gray>що майорить за тобою"
 cape-azure-effect-name: "<blue>Лазуровий плащ"
 cape-azure-effect-description:
   - " "
-  - "<gray>A cool blue particle cape"
-  - "<gray>flowing behind you"
+  - "<gray>Прохолодний синій плащ з частинок,"
+  - "<gray>що майорить за тобою"
 cape-emerald-effect-name: "<green>Смарагдовий плащ"
 cape-emerald-effect-description:
   - " "
-  - "<gray>A lush green particle cape"
-  - "<gray>flowing behind you"
+  - "<gray>Пишний зелений плащ з частинок,"
+  - "<gray>що майорить за тобою"
 cape-violet-effect-name: "<dark_purple>Фіолетовий плащ"
 cape-violet-effect-description:
   - " "
-  - "<gray>A royal purple particle cape"
-  - "<gray>flowing behind you"
+  - "<gray>Королівський фіолетовий плащ,"
+  - "<gray>що майорить за тобою"
 cape-rainbow-effect-name: "<light_purple>Райдужний плащ"
 cape-rainbow-effect-description:
   - " "
-  - "<gray>A colorful animated cape"
-  - "<gray>flowing behind you"
+  - "<gray>Кольоровий анімований плащ,"
+  - "<gray>що майорить за тобою"
 cape-gold-effect-name: "<yellow>Золотий плащ"
 cape-gold-effect-description:
   - " "
-  - "<gray>A bright golden particle cape"
-  - "<gray>for a regal look"
+  - "<gray>Яскравий золотий плащ з частинок"
+  - "<gray>для величного вигляду"
 cape-ice-effect-name: "<aqua>Крижаний плащ"
 cape-ice-effect-description:
   - " "
-  - "<gray>A frosty light-blue cape"
-  - "<gray>that shimmers in motion"
+  - "<gray>Морозний світло-синій плащ,"
+  - "<gray>що мерехтить у русі"
 cape-void-effect-name: "<dark_gray>Плащ порожнечі"
 cape-void-effect-description:
   - " "
-  - "<gray>A dark cosmic cape"
-  - "<gray>with deep shadow tones"
+  - "<gray>Темний космічний плащ"
+  - "<gray>з глибокими відтінками тіней"
 cape-sunset-effect-name: "<gold>Плащ заходу"
 cape-sunset-effect-description:
   - " "
-  - "<gray>An orange dusk-inspired cape"
-  - "<gray>with warm glow colors"
+  - "<gray>Помаранчевий плащ у стилі сутінків"
+  - "<gray>з теплими кольорами світіння"
 balloons-effect-name: "<light_purple>Повітряні кульки"
 balloons-effect-description:
   - " "
-  - "<gray>A bunch of floating balloons"
-  - "<gray>follows you around"
+  - "<gray>Зв'язка повітряних кульок"
+  - "<gray>слідує за тобою"
 red-balloon-effect-name: "<red>Червона кулька"
 red-balloon-effect-description:
   - " "
-  - "<gray>A bright red balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Яскрава червона кулька,"
+  - "<gray>прив'язана повідцем"
 blue-balloon-effect-name: "<blue>Синя кулька"
 blue-balloon-effect-description:
   - " "
-  - "<gray>A calm blue balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Спокійна синя кулька,"
+  - "<gray>прив'язана повідцем"
 green-balloon-effect-name: "<green>Зелена кулька"
 green-balloon-effect-description:
   - " "
-  - "<gray>A vivid green balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Яскрава зелена кулька,"
+  - "<gray>прив'язана повідцем"
 yellow-balloon-effect-name: "<yellow>Жовта кулька"
 yellow-balloon-effect-description:
   - " "
-  - "<gray>A sunny yellow balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Сонячна жовта кулька,"
+  - "<gray>прив'язана повідцем"
 purple-balloon-effect-name: "<dark_purple>Фіолетова кулька"
 purple-balloon-effect-description:
   - " "
-  - "<gray>A royal purple balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Королівська фіолетова кулька,"
+  - "<gray>прив'язана повідцем"
 orange-balloon-effect-name: "<gold>Помаранчева кулька"
 orange-balloon-effect-description:
   - " "
-  - "<gray>A bright orange balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Яскрава помаранчева кулька,"
+  - "<gray>прив'язана повідцем"
 cyan-balloon-effect-name: "<aqua>Бірюзова кулька"
 cyan-balloon-effect-description:
   - " "
-  - "<gray>A fresh cyan balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Свіжа бірюзова кулька,"
+  - "<gray>прив'язана повідцем"
 pink-balloon-effect-name: "<light_purple>Рожева кулька"
 pink-balloon-effect-description:
   - " "
-  - "<gray>A sweet pink balloon"
-  - "<gray>tied with a lead"
+  - "<gray>Мила рожева кулька,"
+  - "<gray>прив'язана повідцем"
 pet-cat-effect-name: "<yellow>Міні-кіт"
 pet-cat-effect-description:
   - " "
-  - "<gray>A tiny cat follows you around"
+  - "<gray>Маленький котик слідує за тобою"
 pet-wolf-effect-name: "<gray>Міні-вовк"
 pet-wolf-effect-description:
   - " "
-  - "<gray>A tiny wolf runs right behind you"
+  - "<gray>Маленький вовк біжить позаду"
 pet-rabbit-effect-name: "<white>Міні-кролик"
 pet-rabbit-effect-description:
   - " "
-  - "<gray>A tiny rabbit hops after you"
+  - "<gray>Маленький кролик стрибає за тобою"
 pet-fox-effect-name: "<gold>Міні-лис"
 pet-fox-effect-description:
   - " "
-  - "<gray>A tiny fox follows your trail"
+  - "<gray>Маленький лис слідує твоїм шляхом"
 pet-pig-effect-name: "<light_purple>Міні-свинка"
 pet-pig-effect-description:
   - " "
-  - "<gray>A tiny pig runs behind you"
+  - "<gray>Маленька свинка біжить за тобою"
 pet-sheep-effect-name: "<white>Міні-вівця"
 pet-sheep-effect-description:
   - " "
-  - "<gray>A tiny sheep follows your steps"
+  - "<gray>Маленька вівця йде по твоїх слідах"
+pet-cow-effect-name: "<green>Корова"
+pet-cow-effect-description:
+  - " "
+  - "<gray>Маленький улюбленець — корова"
+pet-chicken-effect-name: "<green>Курка"
+pet-chicken-effect-description:
+  - " "
+  - "<gray>Маленький улюбленець — курка"
+pet-slime-effect-name: "<green>Слайм"
+pet-slime-effect-description:
+  - " "
+  - "<gray>Маленький улюбленець — слайм"
+pet-turtle-effect-name: "<green>Черепаха"
+pet-turtle-effect-description:
+  - " "
+  - "<gray>Маленький улюбленець — черепаха"
+pet-bee-effect-name: "<green>Бджола"
+pet-bee-effect-description:
+  - " "
+  - "<gray>Маленький улюбленець — бджола"
+pet-frog-effect-name: "<green>Жаба"
+pet-frog-effect-description:
+  - " "
+  - "<gray>Маленький улюбленець — жаба"
 effect-enabled: "<aqua>Увімкнено %effect_name%"
 effect-disabled: "<red>Вимкнено %effect_name%"
 disabled-all-effects-message: "<red>Усі активні косметики вимкнено."
@@ -223,3 +280,79 @@ purchase-successful: "<green>Куплено %effect_name% за <gold>$%effect_pr
 purchase-already-owned: "<yellow>Ти вже володієш %effect_name%"
 purchase-failed: "<red>Покупка не вдалась через помилку БД. Баланс повернено."
 no-permission-message: "<red>У тебе немає прав на цю косметику."
+gun-snowball-name: "<white>Сніжкова гармата"
+gun-snowball-description:
+  - "<gray>Стріляє сніжками!"
+gun-fireball-name: "<gold>Вогняна гармата"
+gun-fireball-description:
+  - "<gray>Стріляє вогняними кулями!"
+gun-explosion-name: "<red>Вибухова гармата"
+gun-explosion-description:
+  - "<gray>ОБЕРЕЖНО: ВИБУХОНЕБЕЗПЕЧНО!"
+gun-meteor-name: "<dark_purple>Метеоритна гармата"
+gun-meteor-description:
+  - "<gray>Стріляє метеоритами!"
+glow-black-effect-name: "<black>Чорне світіння"
+glow-black-effect-description:
+  - " "
+  - "<gray>Темна аура тіней."
+glow-dark-blue-effect-name: "<dark_blue>Темно-синє світіння"
+glow-dark-blue-effect-description:
+  - " "
+  - "<gray>Глибока синя аура."
+glow-dark-green-effect-name: "<dark_green>Темно-зелене світіння"
+glow-dark-green-effect-description:
+  - " "
+  - "<gray>Глибока зелена аура."
+glow-dark-aqua-effect-name: "<dark_aqua>Темно-бірюзове світіння"
+glow-dark-aqua-effect-description:
+  - " "
+  - "<gray>Глибока бірюзова аура."
+glow-dark-red-effect-name: "<dark_red>Темно-червоне світіння"
+glow-dark-red-effect-description:
+  - " "
+  - "<gray>Глибока червона аура."
+glow-dark-purple-effect-name: "<dark_purple>Темно-фіолетове світіння"
+glow-dark-purple-effect-description:
+  - " "
+  - "<gray>Темна фіолетова аура."
+glow-gold-effect-name: "<gold>Золоте світіння"
+glow-gold-effect-description:
+  - " "
+  - "<gray>Яскрава золотиста аура."
+glow-gray-effect-name: "<gray>Сіре світіння"
+glow-gray-effect-description:
+  - " "
+  - "<gray>Тьмяно-сіра аура."
+glow-dark-gray-effect-name: "<dark_gray>Темно-сіре світіння"
+glow-dark-gray-effect-description:
+  - " "
+  - "<gray>Дуже темна сіра аура."
+glow-blue-effect-name: "<blue>Синє світіння"
+glow-blue-effect-description:
+  - " "
+  - "<gray>Яскрава синя аура."
+glow-green-effect-name: "<green>Зелене світіння"
+glow-green-effect-description:
+  - " "
+  - "<gray>Яскрава зелена аура."
+glow-aqua-effect-name: "<aqua>Бірюзове світіння"
+glow-aqua-effect-description:
+  - " "
+  - "<gray>Світла бірюзова аура."
+glow-red-effect-name: "<red>Червоне світіння"
+glow-red-effect-description:
+  - " "
+  - "<gray>Яскрава червона аура."
+glow-light-purple-effect-name: "<light_purple>Рожеве світіння"
+glow-light-purple-effect-description:
+  - " "
+  - "<gray>Мила рожева аура."
+glow-yellow-effect-name: "<yellow>Жовте світіння"
+glow-yellow-effect-description:
+  - " "
+  - "<gray>Яскрава сонячна жовта аура."
+glow-white-effect-name: "<white>Біле світіння"
+glow-white-effect-description:
+  - " "
+  - "<gray>Чиста біла аура."

@@ -7,6 +7,26 @@ effects:
     price: 100.0
     permission: cosmetics.trail.rainbow
     permission-only: false
+  shadow_footprints:
+    price: 120.0
+    permission: cosmetics.trail.shadow_footprints
+    permission-only: false
+  snow_footprints:
+    price: 120.0
+    permission: cosmetics.trail.snow_footprints
+    permission-only: false
+  flame_helix:
+    price: 150.0
+    permission: cosmetics.trail.flame_helix
+    permission-only: false
+  redstone_helix:
+    price: 150.0
+    permission: cosmetics.trail.redstone_helix
+    permission-only: false
+  soul_fire_helix:
+    price: 150.0
+    permission: cosmetics.trail.soul_fire_helix
+    permission-only: false
   charm:
     price: 100.0
     permission: cosmetics.trail.charm

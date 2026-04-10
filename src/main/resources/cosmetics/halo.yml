@@ -35,3 +35,9 @@ effects:
     price: 100.0
     permission: cosmetics.halo.rainbow
     permission-only: false
+  crown:
+    price: 150.0
+    permission: cosmetics.halo.crown
+    permission-only: false
+    material: GOLD_NUGGET
+    slot: 28

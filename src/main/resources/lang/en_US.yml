@@ -27,6 +27,10 @@ halo-effects-item-name: "<gold>Halo Effects"
 halo-effects-item-lore:
   - " "
   - "<gray>Active: %active_effect_name%"
+glow-effects-item-name: "<gold>Glow Effects"
+glow-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
 category-unlocked-lore-line: "<gray>Unlocked: <green>%unlocked_count%<gray>/%total_count%"
 reset-all-effects-item-name: "<red>Reset All Effects"
 reset-all-effects-item-lore:
@@ -92,11 +96,35 @@ rainbow-effect-name: "<dark_purple>R<light_purple>a<dark_blue>i<green>n<yellow>b
 rainbow-effect-description:
   - " "
   - "<gray>Nyan cat activated."
+shadow-footprints-effect-name: "<dark_gray>Shadow Footprints"
+shadow-footprints-effect-description:
+  - " "
+  - "<gray>Leave a trail of shadow footprints behind you"
+snow-footprints-effect-name: "<white>Snow Footprints"
+snow-footprints-effect-description:
+  - " "
+  - "<gray>Leave a trail of snowy footprints"
+flame-helix-effect-name: "<gold>Flame Helix"
+flame-helix-effect-description:
+  - " "
+  - "<gray>A swirling flame helix around you"
+redstone-helix-effect-name: "<red>Redstone Helix"
+redstone-helix-effect-description:
+  - " "
+  - "<gray>A swirling redstone helix around you"
+soul-fire-helix-effect-name: "<aqua>Soul Fire Helix"
+soul-fire-helix-effect-description:
+  - " "
+  - "<gray>A swirling soul fire helix around you"
 cloud-effect-name: "<gray>Cloudy"
 cloud-effect-description:
   - " "
   - "<gray>Cloudy with a chance"
   - "<gray>of particles"
+crown-effect-name: "<yellow>Crown"
+crown-effect-description:
+  - " "
+  - "<gray>A royal golden crown"
 cape-crimson-effect-name: "<red>Crimson Cape"
 cape-crimson-effect-description:
   - " "
@@ -223,3 +251,112 @@ purchase-successful: "<green>Purchased %effect_name% for <gold>$%effect_price%"
 purchase-already-owned: "<yellow>You already own %effect_name%"
 purchase-failed: "<red>Purchase failed due to a database error. Your balance was refunded."
 no-permission-message: "<red>You do not have permission to use this cosmetic."
+
+pet-cow-effect-name: "<green>Cow"
+pet-cow-effect-description:
+  - " "
+  - "<gray>A small cow pet"
+pet-chicken-effect-name: "<green>Chicken"
+pet-chicken-effect-description:
+  - " "
+  - "<gray>A small chicken pet"
+pet-slime-effect-name: "<green>Slime"
+pet-slime-effect-description:
+  - " "
+  - "<gray>A small slime pet"
+pet-turtle-effect-name: "<green>Turtle"
+pet-turtle-effect-description:
+  - " "
+  - "<gray>A small turtle pet"
+pet-bee-effect-name: "<green>Bee"
+pet-bee-effect-description:
+  - " "
+  - "<gray>A small bee pet"
+pet-frog-effect-name: "<green>Frog"
+pet-frog-effect-description:
+  - " "
+  - "<gray>A small frog pet"
+
+
+guns-effects-item-name: "<gold>Fun Guns"
+guns-effects-item-lore:
+  - " "
+  - "<gray>Active: %active_effect_name%"
+guns-effects-menu-name: "<gold>Fun Guns"
+gun-snowball-name: "<white>Snowball Gun"
+gun-snowball-description:
+  - "<gray>Shoots snowballs!"
+gun-fireball-name: "<gold>Fireball Gun"
+gun-fireball-description:
+  - "<gray>Shoots fireballs!"
+gun-explosion-name: "<red>Explosive Gun"
+gun-explosion-description:
+  - "<gray>WARNING: EXPLOSIVE!"
+gun-meteor-name: "<dark_purple>Meteor Gun"
+gun-meteor-description:
+  - "<gray>Shoots meteors!"
+
+glow-black-effect-name: "<black>Black Glow"
+glow-black-effect-description:
+  - " "
+  - "<gray>A dark shadowy aura."
+glow-dark-blue-effect-name: "<dark_blue>Dark Blue Glow"
+glow-dark-blue-effect-description:
+  - " "
+  - "<gray>A deep blue glowing aura."
+glow-dark-green-effect-name: "<dark_green>Dark Green Glow"
+glow-dark-green-effect-description:
+  - " "
+  - "<gray>A deep green glowing aura."
+glow-dark-aqua-effect-name: "<dark_aqua>Dark Aqua Glow"
+glow-dark-aqua-effect-description:
+  - " "
+  - "<gray>A deep aqua glowing aura."
+glow-dark-red-effect-name: "<dark_red>Dark Red Glow"
+glow-dark-red-effect-description:
+  - " "
+  - "<gray>A deep red glowing aura."
+glow-dark-purple-effect-name: "<dark_purple>Dark Purple Glow"
+glow-dark-purple-effect-description:
+  - " "
+  - "<gray>A dark purple glowing aura."
+glow-gold-effect-name: "<gold>Gold Glow"
+glow-gold-effect-description:
+  - " "
+  - "<gray>A bright golden aura."
+glow-gray-effect-name: "<gray>Gray Glow"
+glow-gray-effect-description:
+  - " "
+  - "<gray>A dim gray glowing aura."
+glow-dark-gray-effect-name: "<dark_gray>Dark Gray Glow"
+glow-dark-gray-effect-description:
+  - " "
+  - "<gray>A very dark gray aura."
+glow-blue-effect-name: "<blue>Blue Glow"
+glow-blue-effect-description:
+  - " "
+  - "<gray>A bright blue glowing aura."
+glow-green-effect-name: "<green>Green Glow"
+glow-green-effect-description:
+  - " "
+  - "<gray>A bright green glowing aura."
+glow-aqua-effect-name: "<aqua>Aqua Glow"
+glow-aqua-effect-description:
+  - " "
+  - "<gray>A bright aqua glowing aura."
+glow-red-effect-name: "<red>Red Glow"
+glow-red-effect-description:
+  - " "
+  - "<gray>A bright red glowing aura."
+glow-light-purple-effect-name: "<light_purple>Pink Glow"
+glow-light-purple-effect-description:
+  - " "
+  - "<gray>A cute pink glowing aura."
+glow-yellow-effect-name: "<yellow>Yellow Glow"
+glow-yellow-effect-description:
+  - " "
+  - "<gray>A bright sunny yellow aura."
+glow-white-effect-name: "<white>White Glow"
+glow-white-effect-description:
+  - " "
+  - "<gray>A pure white glowing aura."

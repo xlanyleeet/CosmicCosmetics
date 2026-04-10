@@ -4,15 +4,8 @@ import co.aikar.commands.PaperCommandManager;
 import com.siliqon.cosmiccosmetics.commands.CosmeticsCommand;
 import com.siliqon.cosmiccosmetics.custom.ActiveEffectData;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
 import com.siliqon.cosmiccosmetics.files.*;
-import com.siliqon.cosmiccosmetics.handlers.effects.Halo;
-import com.siliqon.cosmiccosmetics.handlers.effects.Kill;
-import com.siliqon.cosmiccosmetics.handlers.effects.Projectile;
-import com.siliqon.cosmiccosmetics.handlers.effects.Trail;
-import com.siliqon.cosmiccosmetics.handlers.effects.Capes;
-import com.siliqon.cosmiccosmetics.handlers.effects.Balloons;
-import com.siliqon.cosmiccosmetics.handlers.effects.Pets;
+import com.siliqon.cosmiccosmetics.handlers.effects.*;
 import com.siliqon.cosmiccosmetics.listeners.PlayerListener;
 import com.siliqon.cosmiccosmetics.listeners.ServerListener;
 import com.siliqon.cosmiccosmetics.registries.*;
@@ -70,11 +63,15 @@ public final class CosmeticsPlugin extends JavaPlugin {
 
     public int debugLevel = 0;
 
-    public Map<UUID, ActiveEffectData> playerActiveEffects = new HashMap<>();
-    public Map<UUID, Boolean> cosmeticsEnabled = new HashMap<>();
-    public Map<UUID, Set<EffectType>> purchasedEffects = new ConcurrentHashMap<>();
+    private Map<UUID, ActiveEffectData> playerActiveEffects = new ConcurrentHashMap<>();
+    private Map<UUID, Boolean> cosmeticsEnabled = new ConcurrentHashMap<>();
+    private Map<UUID, Set<Enum<?>>> purchasedEffects = new ConcurrentHashMap<>();
 
     private Storage storage;
+
+    @Override
+    public void onLoad() {
+    }
 
     @Override
     public void onEnable() {
@@ -119,7 +116,6 @@ public final class CosmeticsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Balloons.removeAll();
         Pets.removeAll();
 
         try {
@@ -154,8 +150,8 @@ public final class CosmeticsPlugin extends JavaPlugin {
 
     private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new Kill(this), this);
         Bukkit.getPluginManager().registerEvents(new ServerListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new com.siliqon.cosmiccosmetics.handlers.effects.Guns(this), this);
         if (debugLevel >= 2)
             log("Registered listeners");
     }
@@ -186,32 +182,24 @@ public final class CosmeticsPlugin extends JavaPlugin {
             if (ped.getTaskIds().containsKey(form))
                 continue;
             switch (form) {
-                case PROJECTILE: {
-                    Projectile.startForPlayer(player);
-                    break;
-                }
                 case TRAIL: {
-                    Trail.startForPlayer(player);
+                    Trails.startForPlayer(player);
                     break;
                 }
                 case HALO: {
-                    Halo.startForPlayer(player);
+                    Halos.startForPlayer(player);
                     break;
                 }
                 case CAPES: {
                     Capes.startForPlayer(player);
                     break;
                 }
-                case BALLOONS: {
-                    Balloons.startForPlayer(player);
-                    break;
-                }
                 case PETS: {
                     Pets.startForPlayer(player);
                     break;
                 }
-                case KILL:
-                case GLOW: {
+                case GLOW:
+                case FUNGUN: {
                     break;
                 }
             }
@@ -250,18 +238,18 @@ public final class CosmeticsPlugin extends JavaPlugin {
         return vaultService != null && vaultService.isEconomyEnabled();
     }
 
-    public Set<EffectType> getPurchasedEffects(UUID playerUUID) {
+    public Set<Enum<?>> getPurchasedEffects(UUID playerUUID) {
         if (purchaseService == null) {
             return purchasedEffects.computeIfAbsent(playerUUID, ignored -> new HashSet<>());
         }
         return purchaseService.getPurchasedEffects(playerUUID);
     }
 
-    public boolean hasPurchasedEffect(Player player, EffectType effectType) {
+    public boolean hasPurchasedEffect(Player player, Enum<?> effectType) {
         return purchaseService != null && purchaseService.hasPurchasedEffect(player, effectType);
     }
 
-    public boolean canUseEffect(Player player, EffectForm form, EffectType effectType) {
+    public boolean canUseEffect(Player player, EffectForm form, Enum<?> effectType) {
         if (purchaseService == null) {
             return Utils.checkPlayerPermission(
                     player,
@@ -270,7 +258,7 @@ public final class CosmeticsPlugin extends JavaPlugin {
         return purchaseService.canUseEffect(player, form, effectType);
     }
 
-    public double getEffectPrice(EffectForm form, EffectType effectType) {
+    public double getEffectPrice(EffectForm form, Enum<?> effectType) {
         if (purchaseService == null) {
             return resolveEffectPrice(form, effectType);
         }
@@ -285,11 +273,27 @@ public final class CosmeticsPlugin extends JavaPlugin {
         return purchaseService != null && purchaseService.isCosmeticPurchasingEnabled();
     }
 
-    public CompletableFuture<PurchaseResult> purchaseEffect(Player player, EffectForm form, EffectType effectType) {
+    public CompletableFuture<PurchaseResult> purchaseEffect(Player player, EffectForm form, Enum<?> effectType) {
         if (purchaseService == null) {
             return CompletableFuture.completedFuture(PurchaseResult.DATABASE_ERROR);
         }
         return purchaseService.purchaseEffect(player, form, effectType);
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public Map<UUID, ActiveEffectData> getPlayerActiveEffects() {
+        return playerActiveEffects;
+    }
+
+    public Map<UUID, Boolean> getCosmeticsEnabled() {
+        return cosmeticsEnabled;
+    }
+
+    public Map<UUID, Set<Enum<?>>> getAllPurchasedEffects() {
+        return purchasedEffects;
     }
 
     public ConfigCache getConfigFile() {
@@ -335,21 +339,21 @@ public final class CosmeticsPlugin extends JavaPlugin {
         this.cosmeticRules = cosmeticRules;
     }
 
-    public String resolveEffectPermission(EffectForm form, EffectType effectType) {
+    public String resolveEffectPermission(EffectForm form, Enum<?> effectType) {
         if (cosmeticRules == null) {
             return "cosmetics." + form.name().toLowerCase() + "." + effectType.name().toLowerCase();
         }
         return cosmeticRules.resolvePermission(form, effectType);
     }
 
-    public boolean isPermissionOnlyEffect(EffectForm form, EffectType effectType) {
+    public boolean isPermissionOnlyEffect(EffectForm form, Enum<?> effectType) {
         if (cosmeticRules == null) {
             return form == EffectForm.PETS;
         }
         return cosmeticRules.isPermissionOnly(form, effectType);
     }
 
-    public double resolveEffectPrice(EffectForm form, EffectType effectType) {
+    public double resolveEffectPrice(EffectForm form, Enum<?> effectType) {
         if (cosmeticRules == null) {
             return Math.max(0.0D, config.getDefaultCosmeticPrice());
         }
@@ -363,12 +367,12 @@ public final class CosmeticsPlugin extends JavaPlugin {
         return config.isWorldEnabled(form, worldName);
     }
 
-    public GUIManager getGuiManager() {
-        return guiManager;
+    public static CosmeticsPlugin getInstance() {
+        return INSTANCE;
     }
 
-    public Storage getStorage() {
-        return storage;
+    public GUIManager getGuiManager() {
+        return guiManager;
     }
 
     public static void log(String message) {
@@ -426,9 +430,5 @@ public final class CosmeticsPlugin extends JavaPlugin {
         }
 
         return parts[0].toLowerCase(Locale.ROOT) + "_" + parts[1].toUpperCase(Locale.ROOT);
-    }
-
-    public static CosmeticsPlugin getInstance() {
-        return INSTANCE;
     }
 }

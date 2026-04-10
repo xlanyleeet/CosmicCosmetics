@@ -23,3 +23,28 @@ effects:
     price: 0.0
     permission: cosmetics.pets.pet_sheep
     permission-only: true
+
+  pet_cow:
+    price: 0.0
+    permission: cosmetics.pets.pet_cow
+    permission-only: true
+  pet_chicken:
+    price: 0.0
+    permission: cosmetics.pets.pet_chicken
+    permission-only: true
+  pet_slime:
+    price: 0.0
+    permission: cosmetics.pets.pet_slime
+    permission-only: true
+  pet_turtle:
+    price: 0.0
+    permission: cosmetics.pets.pet_turtle
+    permission-only: true
+  pet_bee:
+    price: 0.0
+    permission: cosmetics.pets.pet_bee
+    permission-only: true
+  pet_frog:
+    price: 0.0
+    permission: cosmetics.pets.pet_frog
+    permission-only: true

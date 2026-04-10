@@ -34,10 +34,10 @@ public class CosmeticsCommand extends BaseCommand {
         boolean enabled = getEffectsEnabled(player);
         if (enabled) {
             sendMessage(player, lang.getCosmeticsDisabledOther(), true);
-            plugin.cosmeticsEnabled.put(player.getUniqueId(), false);
+            plugin.getCosmeticsEnabled().put(player.getUniqueId(), false);
         } else {
             sendMessage(player, lang.getCosmeticsEnabledOther(), true);
-            plugin.cosmeticsEnabled.put(player.getUniqueId(), true);
+            plugin.getCosmeticsEnabled().put(player.getUniqueId(), true);
         }
     }
 

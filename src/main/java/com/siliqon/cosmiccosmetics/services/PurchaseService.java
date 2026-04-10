@@ -2,7 +2,6 @@ package com.siliqon.cosmiccosmetics.services;
 
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
 import com.siliqon.cosmiccosmetics.utils.Storage;
 import com.siliqon.cosmiccosmetics.utils.Utils;
 import net.milkbowl.vault.economy.Economy;
@@ -21,28 +20,28 @@ public class PurchaseService {
     private final CosmeticsPlugin plugin;
     private final VaultService vaultService;
     private final Storage storage;
-    private final Map<UUID, Set<EffectType>> purchasedEffects;
+    private final Map<UUID, Set<Enum<?>>> purchasedEffects;
 
     public PurchaseService(
             CosmeticsPlugin plugin,
             VaultService vaultService,
             Storage storage,
-            Map<UUID, Set<EffectType>> purchasedEffects) {
+            Map<UUID, Set<Enum<?>>> purchasedEffects) {
         this.plugin = plugin;
         this.vaultService = vaultService;
         this.storage = storage;
         this.purchasedEffects = purchasedEffects;
     }
 
-    public Set<EffectType> getPurchasedEffects(UUID playerUUID) {
+    public Set<Enum<?>> getPurchasedEffects(UUID playerUUID) {
         return purchasedEffects.computeIfAbsent(playerUUID, ignored -> new HashSet<>());
     }
 
-    public boolean hasPurchasedEffect(Player player, EffectType effectType) {
+    public boolean hasPurchasedEffect(Player player, Enum<?> effectType) {
         return getPurchasedEffects(player.getUniqueId()).contains(effectType);
     }
 
-    public boolean canUseEffect(Player player, EffectForm form, EffectType effectType) {
+    public boolean canUseEffect(Player player, EffectForm form, Enum<?> effectType) {
         String permission = plugin.resolveEffectPermission(form, effectType);
         if (plugin.isPermissionOnlyEffect(form, effectType)) {
             return Utils.checkPlayerPermission(player, permission);
@@ -56,7 +55,7 @@ public class PurchaseService {
         return hasPurchasedEffect(player, effectType);
     }
 
-    public double getEffectPrice(EffectForm form, EffectType effectType) {
+    public double getEffectPrice(EffectForm form, Enum<?> effectType) {
         return plugin.resolveEffectPrice(form, effectType);
     }
 
@@ -71,7 +70,7 @@ public class PurchaseService {
     public CompletableFuture<CosmeticsPlugin.PurchaseResult> purchaseEffect(
             Player player,
             EffectForm form,
-            EffectType effectType) {
+            Enum<?> effectType) {
         if (!isCosmeticPurchasingEnabled()) {
             return CompletableFuture.completedFuture(CosmeticsPlugin.PurchaseResult.PURCHASES_DISABLED);
         }

@@ -3,7 +3,6 @@ package com.siliqon.cosmiccosmetics.utils;
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.custom.ActiveEffectData;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
 import com.siliqon.cosmiccosmetics.files.ConfigCache;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -35,11 +34,11 @@ public class Storage {
     private HikariDataSource dataSource;
     private final ExecutorService dbExecutor;
 
-    public record PlayerData(boolean enabled, ActiveEffectData activeEffectData, Set<EffectType> purchasedEffects) {
+    public record PlayerData(boolean enabled, ActiveEffectData activeEffectData, Set<Enum<?>> purchasedEffects) {
     }
 
     private record SaveSnapshot(UUID playerUUID, boolean enabled, ActiveEffectData activeEffectData,
-            Set<EffectType> purchasedEffects) {
+            Set<Enum<?>> purchasedEffects) {
     }
 
     public Storage(CosmeticsPlugin plugin) {
@@ -61,7 +60,7 @@ public class Storage {
     public CompletableFuture<PlayerData> getPlayerDataAsync(UUID playerUUID) {
         return CompletableFuture.supplyAsync(() -> {
             ActiveEffectData activeEffectData = new ActiveEffectData(playerUUID, new HashMap<>(), new HashMap<>());
-            Set<EffectType> purchasedEffects = new HashSet<>();
+            Set<Enum<?>> purchasedEffects = new HashSet<>();
             boolean enabled = false;
 
             try (Connection connection = dataSource.getConnection()) {
@@ -81,8 +80,10 @@ public class Storage {
                     try (ResultSet resultSet = statement.executeQuery()) {
                         while (resultSet.next()) {
                             EffectForm form = EffectForm.valueOf(resultSet.getString("effect_form"));
-                            EffectType type = EffectType.valueOf(resultSet.getString("effect_type"));
-                            activeEffectData.addEffect(form, type);
+                            Enum<?> type = com.siliqon.cosmiccosmetics.utils.Effects
+                                    .getEnumFromString(resultSet.getString("effect_type"));
+                            if (type != null)
+                                activeEffectData.addEffect(form, type);
                         }
                     }
                 }
@@ -92,7 +93,8 @@ public class Storage {
                     statement.setString(1, playerUUID.toString());
                     try (ResultSet resultSet = statement.executeQuery()) {
                         while (resultSet.next()) {
-                            purchasedEffects.add(EffectType.valueOf(resultSet.getString("effect_type")));
+                            purchasedEffects.add(com.siliqon.cosmiccosmetics.utils.Effects
+                                    .getEnumFromString(resultSet.getString("effect_type")));
                         }
                     }
                 }
@@ -106,7 +108,7 @@ public class Storage {
     }
 
     public CompletableFuture<Void> savePlayerDataAsync(UUID playerUUID, boolean enabled,
-            ActiveEffectData activeEffectData, Set<EffectType> purchasedEffects) {
+            ActiveEffectData activeEffectData, Set<Enum<?>> purchasedEffects) {
         if (shouldSkipPersistence(playerUUID)) {
             return CompletableFuture.completedFuture(null);
         }
@@ -115,26 +117,19 @@ public class Storage {
                 () -> savePlayerDataSync(playerUUID, enabled, activeEffectData, purchasedEffects), dbExecutor);
     }
 
-    public CompletableFuture<Boolean> savePurchasedEffectAsync(UUID playerUUID, EffectType effectType) {
+    public CompletableFuture<Boolean> savePurchasedEffectAsync(UUID playerUUID, Enum<?> effectType) {
         if (shouldSkipPersistence(playerUUID)) {
             return CompletableFuture.completedFuture(true);
         }
 
         return CompletableFuture.supplyAsync(() -> {
             try (Connection connection = dataSource.getConnection()) {
-                try (PreparedStatement exists = connection.prepareStatement(
-                        "SELECT 1 FROM cc_player_purchases WHERE uuid = ? AND effect_type = ?")) {
-                    exists.setString(1, playerUUID.toString());
-                    exists.setString(2, effectType.name());
-                    try (ResultSet resultSet = exists.executeQuery()) {
-                        if (resultSet.next()) {
-                            return true;
-                        }
-                    }
-                }
+                String sql = plugin.getConfigFile().getStorageType() != null
+                        && plugin.getConfigFile().getStorageType().equalsIgnoreCase("MARIADB")
+                                ? "INSERT IGNORE INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)"
+                                : "INSERT OR IGNORE INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)";
 
-                try (PreparedStatement insert = connection.prepareStatement(
-                        "INSERT INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)")) {
+                try (PreparedStatement insert = connection.prepareStatement(sql)) {
                     insert.setString(1, playerUUID.toString());
                     insert.setString(2, effectType.name());
                     insert.setLong(3, System.currentTimeMillis());
@@ -147,21 +142,6 @@ public class Storage {
                 return false;
             }
         }, dbExecutor);
-    }
-
-    public void saveAllData(boolean log) {
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            UUID playerUUID = player.getUniqueId();
-            savePlayerDataSync(
-                    playerUUID,
-                    getEffectsEnabled(player),
-                    getPlayerActiveEffectData(player),
-                    plugin.getPurchasedEffects(playerUUID));
-        });
-
-        if (plugin.debugLevel >= 1 && log) {
-            log("Saved all data");
-        }
     }
 
     public CompletableFuture<Void> saveAllDataAsync(boolean log) {
@@ -210,7 +190,7 @@ public class Storage {
     }
 
     private void savePlayerDataSync(UUID playerUUID, boolean enabled, ActiveEffectData activeEffectData,
-            Set<EffectType> purchasedEffects) {
+            Set<Enum<?>> purchasedEffects) {
         if (shouldSkipPersistence(playerUUID)) {
             return;
         }
@@ -237,14 +217,15 @@ public class Storage {
                 }
 
                 if (activeEffectData != null) {
-                    for (Map.Entry<EffectForm, EffectType> entry : activeEffectData.getEffects().entrySet()) {
-                        try (PreparedStatement statement = connection.prepareStatement(
-                                "INSERT INTO cc_player_effects(uuid, effect_form, effect_type) VALUES (?, ?, ?)")) {
+                    try (PreparedStatement statement = connection.prepareStatement(
+                            "INSERT INTO cc_player_effects(uuid, effect_form, effect_type) VALUES (?, ?, ?)")) {
+                        for (Map.Entry<EffectForm, Enum<?>> entry : activeEffectData.getEffects().entrySet()) {
                             statement.setString(1, playerUUID.toString());
                             statement.setString(2, entry.getKey().name());
                             statement.setString(3, entry.getValue().name());
-                            statement.executeUpdate();
+                            statement.addBatch();
                         }
+                        statement.executeBatch();
                     }
                 }
 
@@ -255,14 +236,17 @@ public class Storage {
                 }
 
                 if (purchasedEffects != null) {
-                    for (EffectType effectType : purchasedEffects) {
-                        try (PreparedStatement statement = connection.prepareStatement(
-                                "INSERT INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)")) {
-                            statement.setString(1, playerUUID.toString());
-                            statement.setString(2, effectType.name());
-                            statement.setLong(3, System.currentTimeMillis());
-                            statement.executeUpdate();
+                    try (PreparedStatement statement = connection.prepareStatement(
+                            "INSERT INTO cc_player_purchases(uuid, effect_type, purchased_at) VALUES (?, ?, ?)")) {
+                        for (Enum<?> effectType : purchasedEffects) {
+                            if (effectType != null) {
+                                statement.setString(1, playerUUID.toString());
+                                statement.setString(2, effectType.name());
+                                statement.setLong(3, System.currentTimeMillis());
+                                statement.addBatch();
+                            }
                         }
+                        statement.executeBatch();
                     }
                 }
 
@@ -343,7 +327,7 @@ public class Storage {
             return null;
         }
 
-        Map<EffectForm, EffectType> effectsCopy = new HashMap<>(source.getEffects());
+        Map<EffectForm, Enum<?>> effectsCopy = new HashMap<>(source.getEffects());
         return new ActiveEffectData(playerUUID, effectsCopy, new HashMap<>());
     }
 }

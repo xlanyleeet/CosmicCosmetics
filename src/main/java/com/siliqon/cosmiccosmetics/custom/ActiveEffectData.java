@@ -1,7 +1,6 @@
 package com.siliqon.cosmiccosmetics.custom;
 
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
 import org.bukkit.Bukkit;
 
 import java.util.*;
@@ -9,10 +8,10 @@ import java.util.*;
 public class ActiveEffectData {
 
     private UUID player;
-    private Map<EffectForm, EffectType> effects;
+    private Map<EffectForm, Enum<?>> effects;
     private final Map<EffectForm, List<Integer>> taskIds;
 
-    public ActiveEffectData(UUID player, Map<EffectForm, EffectType> effects, Map<EffectForm, List<Integer>> taskIds) {
+    public ActiveEffectData(UUID player, Map<EffectForm, Enum<?>> effects, Map<EffectForm, List<Integer>> taskIds) {
         this.player = player;
         this.effects = effects;
         this.taskIds = taskIds;
@@ -26,15 +25,15 @@ public class ActiveEffectData {
         this.player = player;
     }
 
-    public Map<EffectForm, EffectType> getEffects() {
+    public Map<EffectForm, Enum<?>> getEffects() {
         return effects;
     }
 
-    public void setEffects(Map<EffectForm, EffectType> effects) {
+    public void setEffects(Map<EffectForm, Enum<?>> effects) {
         this.effects = effects;
     }
 
-    public void addEffect(EffectForm form, EffectType type) {
+    public void addEffect(EffectForm form, Enum<?> type) {
         effects.put(form, type);
     }
 

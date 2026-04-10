@@ -4,19 +4,19 @@ import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
 import org.bukkit.entity.Player;
 
-public class ProjectileCosmetics extends EffectSelectionMenu {
+public class GlowCosmetics extends EffectSelectionMenu {
 
-    public ProjectileCosmetics(CosmeticsPlugin plugin) {
+    public GlowCosmetics(CosmeticsPlugin plugin) {
         super(plugin);
     }
 
     @Override
     protected EffectForm getForm() {
-        return EffectForm.PROJECTILE;
+        return EffectForm.GLOW;
     }
 
     @Override
     protected String getMenuTitle(Player player) {
-        return plugin.getLang(player).getProjectileEffectsMenuName();
+        return plugin.getLang(player).getGlowEffectsMenuName();
     }
 }

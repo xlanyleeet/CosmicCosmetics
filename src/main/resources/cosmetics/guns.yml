@@ -1,0 +1,18 @@
+# Guns Cosmetic Configuration
+effects:
+  SNOWBALL:
+    permission: cosmetics.guns.snowball
+    permission-only: false
+    price: 50.0
+  FIREBALL:
+    permission: cosmetics.guns.fireball
+    permission-only: false
+    price: 150.0
+  EXPLOSION:
+    permission: cosmetics.guns.explosion
+    permission-only: false
+    price: 250.0
+  METEOR:
+    permission: cosmetics.guns.meteor
+    permission-only: false
+    price: 500.0

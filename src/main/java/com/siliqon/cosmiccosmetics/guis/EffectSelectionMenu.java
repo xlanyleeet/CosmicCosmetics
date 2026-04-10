@@ -2,7 +2,6 @@ package com.siliqon.cosmiccosmetics.guis;
 
 import com.siliqon.cosmiccosmetics.CosmeticsPlugin;
 import com.siliqon.cosmiccosmetics.enums.EffectForm;
-import com.siliqon.cosmiccosmetics.enums.EffectType;
 import com.siliqon.cosmiccosmetics.files.LanguageCache;
 import com.siliqon.cosmiccosmetics.guis.lib.GUIManager;
 import com.siliqon.cosmiccosmetics.guis.lib.InventoryGUI;
@@ -39,18 +38,15 @@ public abstract class EffectSelectionMenu extends InventoryGUI {
     protected abstract String getMenuTitle(Player player);
 
     protected int getBackSlot(int rows) {
-        return (rows - 1) * 9;
+        return 49;
     }
 
     protected int getResetSlot(int rows) {
-        return (rows - 1) * 9 + 4;
+        return 53;
     }
 
     protected int getMenuRows(Player player) {
-        int effectCount = getFormEffects(getForm()).size();
-        int effectRows = Math.max(1, (int) Math.ceil(effectCount / 9.0D));
-        int rows = effectRows + 1;
-        return Math.max(3, Math.min(6, rows));
+        return 6;
     }
 
     @Override
@@ -70,11 +66,11 @@ public abstract class EffectSelectionMenu extends InventoryGUI {
         LanguageCache lang = plugin.getLang(player);
 
         EffectForm form = getForm();
-        EffectType activeEffect = getActiveEffect(player, form);
+        Enum<?> activeEffect = getActiveEffect(player, form);
         List<Integer> effectSlots = getDynamicEffectSlots(rows);
 
         int nextSlot = 0;
-        for (EffectType effectType : getFormEffects(form)) {
+        for (Enum<?> effectType : getFormEffects(form)) {
             if (effectType == null || nextSlot >= effectSlots.size()) {
                 continue;
             }
@@ -104,22 +100,24 @@ public abstract class EffectSelectionMenu extends InventoryGUI {
     }
 
     private List<Integer> getDynamicEffectSlots(int rows) {
-        int effectAreaEnd = (rows - 1) * 9;
-        List<Integer> slots = new ArrayList<>(effectAreaEnd);
-        for (int slot = 0; slot < effectAreaEnd; slot++) {
-            slots.add(slot);
+        List<Integer> slots = new ArrayList<>();
+        int[] validRows = { 1, 2, 3, 4 }; // Rows 2 to 5 (0-indexed)
+        for (int r : validRows) {
+            for (int c = 1; c <= 7; c++) {
+                slots.add(r * 9 + c);
+            }
         }
         return slots;
     }
 
-    private GuiItem createSelectEffectItem(Gui gui, Player viewer, EffectType effectType, Material material,
+    private GuiItem createSelectEffectItem(Gui gui, Player viewer, Enum<?> effectType, Material material,
             String itemName, List<String> description, LanguageCache lang) {
         return button(
                 viewer,
                 player -> makeItemWithLore(material, itemName, 1, description),
                 player -> {
                     LanguageCache playerLang = plugin.getLang(player);
-                    EffectType current = getActiveEffect(player, getForm());
+                    Enum<?> current = getActiveEffect(player, getForm());
                     if (current == effectType) {
                         removeActiveEffect(player, getForm());
                         sendMessage(player,
@@ -138,7 +136,7 @@ public abstract class EffectSelectionMenu extends InventoryGUI {
                 });
     }
 
-    private GuiItem createLockedEffectItem(Gui gui, Player viewer, EffectType effectType, String effectName,
+    private GuiItem createLockedEffectItem(Gui gui, Player viewer, Enum<?> effectType, String effectName,
             LanguageCache lang) {
         if (plugin.isPermissionOnlyEffect(getForm(), effectType)) {
             return button(
@@ -201,7 +199,7 @@ public abstract class EffectSelectionMenu extends InventoryGUI {
                 player -> makeSimpleItem(Material.REDSTONE_TORCH, lang.getResetEffectItemName(), 1),
                 player -> {
                     LanguageCache playerLang = plugin.getLang(player);
-                    EffectType current = getActiveEffect(player, getForm());
+                    Enum<?> current = getActiveEffect(player, getForm());
                     removeActiveEffect(player, getForm());
                     if (current != null) {
                         sendMessage(player,

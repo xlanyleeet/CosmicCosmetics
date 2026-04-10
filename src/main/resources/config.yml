@@ -1,7 +1,25 @@
+# ========================================================== #
+#                                                            #
+#                     CosmicCosmetics                        #
+#               Configuration & Settings                     #
+#                                                            #
+# ========================================================== #
+
+# ---------------------------------------------------------- #
+# Level of debug messages logged to console:                 #
+# 0 = No debug, 1 = Basic debug, 2 = Extensive debug         #
+# ---------------------------------------------------------- #
 debug-level: 0
 
+# ========================================================== #
+#                       DATABASE                             #
+# ---------------------------------------------------------- #
+# Supported storage types: SQLITE, MARIADB                   #
+# ========================================================== #
 storage-type: SQLITE
 sqlite-file-name: cosmetics.db
+
+# Settings below are used if storage-type is set to MARIADB
 mariadb-host: 127.0.0.1
 mariadb-port: 3306
 mariadb-database: cosmiccosmetics
@@ -10,19 +28,39 @@ mariadb-password: password
 database-pool-maximum-size: 8
 database-connection-timeout-ms: 30000
 
+# ========================================================== #
+#                     GENERAL SETTINGS                       #
+# ========================================================== #
+
+# Toggle if players can purchase cosmetics with in-game money
 cosmetic-purchasing-enabled: true
+
+# Testing mode (all cosmetics unlocked for everyone)
 cosmetic-testing-mode: false
+
+# Fallback price if a cosmetic has no price defined
 default-cosmetic-price: 100.0
+
+# ========================================================== #
+#                       LANGUAGE                             #
+# ========================================================== #
+
+# The default language file (e.g. en_US means en_US.yml in lang/)
 default-language: en_US
+
+# Whether players can select their own individual language
 per-player-language: true
 
-# Leave list empty to allow that cosmetic form in all worlds.
+# ========================================================== #
+#                    ENABLED WORLDS                          #
+# ---------------------------------------------------------- #
+# Specify which worlds allow certain types of cosmetics.     #
+# Leave a list empty [] to allow that cosmetic in ALL worlds.#
+# ========================================================== #
 enabled-worlds:
-  projectile: []
-  trail: []
-  kill: []
   halo: []
-  glow: []
   capes: []
-  balloons: []
   pets: []
+  trail: []
+  glow: []
+  fungun: []
